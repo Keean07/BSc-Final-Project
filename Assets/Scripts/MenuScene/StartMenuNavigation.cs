@@ -7,34 +7,21 @@ using UnityEngine.EventSystems;
 
 public class StartMenuNavigation : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject mainPanel;
-    [SerializeField]
-    private GameObject startButtonObject;
-    [SerializeField]
-    private Button startButton;
-    [SerializeField]
-    private Button optionsButton;
-    [SerializeField]
-    private Button exitButton;
+    [SerializeField] private GameObject mainPanel;
+    [SerializeField] private GameObject startButtonObject;
+    [SerializeField] private Button startButton;
+    [SerializeField] private Button optionsButton;
+    [SerializeField] private Button exitButton;
     
-    [SerializeField]
-    private GameObject confirmationPanel;
-    [SerializeField]
-    private GameObject cancelExitButtonObject;
-    [SerializeField]
-    private Button cancelExitButton;
-    [SerializeField]
-    private GameObject confirmExitButtonObject;
-    [SerializeField]
-    private Button confirmExitButton;
+    [SerializeField] private GameObject confirmationPanel;
+    [SerializeField] private GameObject cancelExitButtonObject;
+    [SerializeField] private Button cancelExitButton;
+    [SerializeField] private GameObject confirmExitButtonObject;
+    [SerializeField] private Button confirmExitButton;
 
-    [SerializeField]
-    private GameObject optionsPanel;
-    [SerializeField]
-    private GameObject optionsBackButtonObject;
-    [SerializeField]
-    private Button optionsBackButton;
+    [SerializeField] private GameObject optionsPanel;
+    [SerializeField] private GameObject optionsBackButtonObject;
+    [SerializeField] private Button optionsBackButton;
 
     private EventSystem eventSystem;
     private EventSystem firstSelectedButton;

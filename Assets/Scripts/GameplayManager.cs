@@ -5,13 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameplayManager: MonoBehaviour
 {
-    [SerializeField]
-    private MenuManager menuManager;
-
-    [SerializeField]
-    private GameObject player;
-    [SerializeField]
-    private GameObject platform;
+    [SerializeField] private MenuManager menuManager;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject platform;
 
     // Here are all my flags:
     private int points;
@@ -29,9 +25,14 @@ public class GameplayManager: MonoBehaviour
             menuManager.BeginGameplay();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !menuManager.gameOverScreen)
+        if (Input.GetKeyDown(KeyCode.Escape) && !menuManager.gameOverScreen && !menuManager.optionsScreen && !menuManager.pauseScreen)
         {
             menuManager.PauseGameplay();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && (menuManager.pauseScreen || menuManager.optionsScreen))
+        {
+            menuManager.ResumeGameplay();
         }
 
         if (player.transform.position.y < 0 && !menuManager.gameOverScreen)
