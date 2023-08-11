@@ -1986,6 +1986,7 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194229}
+  - component: {fileID: 963194230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2071,6 +2072,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a332103fe96eec74d9ea05c49fa870d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuManager: {fileID: 963194230}
+  player: {fileID: 825102164}
+  platform: {fileID: 1084159694}
+--- !u!114 &963194230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f7de7d90bf302418f0936a26e2f67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   welcomePanel: {fileID: 825073629}
   gameOverPanel: {fileID: 763877212}
   gameOverText: {fileID: 1308958613}
@@ -2081,8 +2097,7 @@ MonoBehaviour:
   pausePanel: {fileID: 1679674206}
   optionsPanel: {fileID: 616354953}
   confirmQuitPanel: {fileID: 1130335998}
-  player: {fileID: 825102164}
-  platform: {fileID: 1084159694}
+  gameOverScreen: 0
 --- !u!1 &963331111
 GameObject:
   m_ObjectHideFlags: 0
