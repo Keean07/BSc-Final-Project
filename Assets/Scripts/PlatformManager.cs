@@ -9,9 +9,16 @@ public class PlatformManager : MonoBehaviour
     //[SerializeField] private GameObject GameManager;
     //[SerializeField] private GameObject CoinManager;
 
+    [SerializeField] private GameObject CameraManager;
+    private CameraManager cameraManager;
+
     [SerializeField] GameObject player;
     [SerializeField] public GameObject platform1;
     [SerializeField] GameObject platform2;
+
+    public GameObject currentPlatform;
+
+    private List<GameObject> platformList;
 
     private CoinSpawner coinSpawner1;
 
@@ -21,9 +28,15 @@ public class PlatformManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentPlatform = platform1;
+
+        platformList.Add(platform1);
+        platformList.Add(platform2);
+
         coinSpawner1 = platform1.GetComponent<CoinSpawner>();
+        cameraManager = CameraManager.GetComponent<CameraManager>();
         Spawn1 = new Vector3(0.0f, 11.0f, 0.0f);
-        Spawn1 = new Vector3(0.0f, 20.0f, 11.5f);
+        Spawn2 = new Vector3(0.0f, 22.0f, 11.0f);
     }
 
     // Update is called once per frame
@@ -32,9 +45,15 @@ public class PlatformManager : MonoBehaviour
 
     }
 
-    public void Platform1to2()
+    public void NextPlatform()
     {
-        player.transform.position = Spawn2;
+        if (currentPlatform == platform1)
+        {
+            player.transform.position = Spawn2;
+            cameraManager.CamToPlatform(2);
+
+        }
+        currentPlatform = platform2;
     }
 
 

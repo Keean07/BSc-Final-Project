@@ -10,6 +10,8 @@ public class CoinSpawner : MonoBehaviour
     [SerializeField] private GameObject coin;
     [SerializeField] private PlatformManager platformManager;
 
+    private GameObject currentPlatform;
+
     public List<GameObject> coinsList;
 
     private GameObject child;
@@ -26,15 +28,17 @@ public class CoinSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Save current platform from platform manager script
+        currentPlatform = platformManager.currentPlatform;
+
+        // Create list to store coins
         coinsList = new List<GameObject>();
 
-        for (int i = 0; i < 8; i++)
-        {
-            child = platformManager.GetComponent<PlatformManager>().platform1.transform.GetChild(i).gameObject;
-            coinsList.Add(child);
-        }
+        // Clear and fill coins list with platforms coins
+        FillCoinsList();
 
-        InvokeRepeating("CheckCoins", 1f, 3f);
+        // Call CheckCoins after 1 second, and then every 1 second
+        InvokeRepeating(nameof(CheckCoins), 1f, 1f);
     }
 
     // Update is called once per frame
@@ -45,6 +49,19 @@ public class CoinSpawner : MonoBehaviour
             coinsList[i].transform.Rotate(rotatespeed * rotationDirection * Time.deltaTime);
         }
         pointsText.text = "Points: " + score;
+    }
+
+    private void FillCoinsList()
+    {
+        // Clear out current coins
+        coinsList.Clear();
+
+        // Fill coins list with platforms children (the coins)
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            child = currentPlatform.transform.GetChild(i).gameObject;
+            coinsList.Add(child);
+        }
     }
 
     void CheckCoins()
@@ -62,7 +79,7 @@ public class CoinSpawner : MonoBehaviour
         if (remaining == false)
         {
             Debug.Log("Opening Portal");
-            //PlatformChanger.Platform1to2();
+            platformManager.NextPlatform();
         }
     }
     /***

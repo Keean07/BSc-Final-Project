@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class BallMoving : MonoBehaviour
 {
-    private GameObject player;
     public float speed;
     //private bool jump;
 
     void Start()
     {
-        player = GetComponent<PlayerManager>().player;
         //jump = false;
     }
 
@@ -29,7 +27,7 @@ public class BallMoving : MonoBehaviour
 
         Vector3 moveBall = new Vector3(horizontal, 0, vertical);
 
-        Rigidbody rb = player.transform.GetComponent<Rigidbody>();
+        Rigidbody rb = transform.GetComponent<Rigidbody>();
         rb.AddForce(moveBall * speed);
     }
 
