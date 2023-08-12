@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformChanger : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
-    [SerializeField] GameObject player;
-    [SerializeField] GameObject platform1;
-    [SerializeField] GameObject platform2;
+    [SerializeField] public GameObject player;
+
+
     // Start is called before the first frame update
     void Start()
     {

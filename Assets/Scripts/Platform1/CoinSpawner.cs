@@ -8,6 +8,7 @@ using TMPro;
 public class CoinSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject coin;
+    [SerializeField] private PlatformManager platformManager;
 
     public List<GameObject> coinsList;
 
@@ -21,20 +22,15 @@ public class CoinSpawner : MonoBehaviour
 
     private Vector3 rotationDirection = new Vector3(0, 0, 1);
 
-    private Vector3 Spawn1;
-    private Vector3 Spawn2;
-
 
     // Start is called before the first frame update
     void Start()
     {
-        Spawn1 = new Vector3 (0.0f, 11.0f, 0.0f);
-        Spawn1 = new Vector3 (0.0f, 20.0f, 11.5f);
         coinsList = new List<GameObject>();
 
         for (int i = 0; i < 8; i++)
         {
-            child = transform.GetChild(i).gameObject;
+            child = platformManager.GetComponent<PlatformManager>().platform1.transform.GetChild(i).gameObject;
             coinsList.Add(child);
         }
 
@@ -66,12 +62,7 @@ public class CoinSpawner : MonoBehaviour
         if (remaining == false)
         {
             Debug.Log("Opening Portal");
-            //this.GameObject.transform.position = Spawn2;
-
-            //for (int i = 0; i < coinsList.Count; i++)
-            //{
-            //    coinsList[i].SetActive(true);
-            //}
+            //PlatformChanger.Platform1to2();
         }
     }
     /***

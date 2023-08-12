@@ -5,16 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class GameplayManager: MonoBehaviour
 {
-    [SerializeField] private MenuManager menuManager;
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject platform;
+    [SerializeField] private GameObject MenuManager;
+    [SerializeField] private GameObject PlayerManager;
+    [SerializeField] private GameObject PlatformManager;
+    [SerializeField] private GameObject CoinManager;
+
+    private MenuManager menuManager;
+    private PlayerManager playerManager;
+    private PlatformManager platformManager;
+    private CoinManager coinManager;
 
     // Here are all my flags:
     private int points;
 
     void Start()
     {
-
+        menuManager = MenuManager.GetComponent<MenuManager>();
+        platformManager = PlatformManager.GetComponent<PlatformManager>();
+        playerManager = PlayerManager.GetComponent<PlayerManager>();
+        coinManager = CoinManager.GetComponent<CoinManager>();
     }
 
     // Update is called once per frame
@@ -35,9 +44,9 @@ public class GameplayManager: MonoBehaviour
             menuManager.ResumeGameplay();
         }
 
-        if (player.transform.position.y < 0 && !menuManager.gameOverScreen)
+        if (playerManager.player.transform.position.y < 0 && !menuManager.gameOverScreen)
         {
-            points = platform.GetComponent<CoinSpawner>().score;
+            points = CoinManager.GetComponent<CoinSpawner>().score;
             menuManager.GameOver(points);
         }
     }

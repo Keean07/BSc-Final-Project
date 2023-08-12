@@ -8,6 +8,11 @@ using UnityEngine.EventSystems;
 
 public class MenuManager : MonoBehaviour
 {
+    //[SerializeField] private GameObject GameManager;
+    //[SerializeField] private GameObject PlayerManager;
+    //[SerializeField] private GameObject PlatformManager;
+    //[SerializeField] private GameObject CoinManager;
+
     [SerializeField] private GameObject welcomePanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text gameOverText;

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CoinCollecting : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject platform;
+    [SerializeField] private GameObject platform;
     private CoinSpawner coinSpawner;
 
     // Start is called before the first frame update
