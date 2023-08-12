@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class PlatformManager : MonoBehaviour
 {
-    //[SerializeField] private GameObject MenuManager;
-    //[SerializeField] private GameObject PlayerManager;
-    //[SerializeField] private GameObject GameManager;
-    //[SerializeField] private GameObject CoinManager;
-
     [SerializeField] private GameObject CameraManager;
     private CameraManager cameraManager;
 
@@ -56,5 +51,8 @@ public class PlatformManager : MonoBehaviour
         currentPlatform = platform2;
     }
 
-
+    public void RestartPlatform()
+    {
+        player.transform.position = currentPlatform.transform.position + new Vector3(0, 5, 0);
+    }
 }

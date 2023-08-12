@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using TMPro;
 
 public class CoinSpawner : MonoBehaviour
 {
@@ -17,8 +16,6 @@ public class CoinSpawner : MonoBehaviour
     private GameObject child;
 
     public int score;
-
-    public TMP_Text pointsText;
 
     private float rotatespeed = 120;
 
@@ -43,11 +40,7 @@ public class CoinSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for (int i = 0; i < coinsList.Count; i++)
-        {
-            coinsList[i].transform.Rotate(rotatespeed * rotationDirection * Time.deltaTime);
-        }
-        pointsText.text = "Points: " + score;
+        RotateCoins();
     }
 
     private void FillCoinsList()
@@ -62,7 +55,15 @@ public class CoinSpawner : MonoBehaviour
         }
     }
 
-    void CheckCoins()
+    private void RotateCoins()
+    {
+        for (int i = 0; i < coinsList.Count; i++)
+        {
+            coinsList[i].transform.Rotate(rotatespeed * rotationDirection * Time.deltaTime);
+        }
+    }
+
+    private void CheckCoins()
     {
         bool remaining = false;
 
@@ -76,10 +77,18 @@ public class CoinSpawner : MonoBehaviour
 
         if (remaining == false)
         {
-            Debug.Log("Opening Portal");
-            platformManager.NextPlatform();
+            ChangePlatform();
         }
     }
+
+    private void ChangePlatform()
+    {
+        Debug.Log("Next Platform...");
+        platformManager.NextPlatform();
+        currentPlatform = platformManager.currentPlatform;
+        FillCoinsList();
+    }
+
     /***
      * SpawnCoin is used to spawn in coins at specific coordinates
      */

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -44,7 +45,13 @@ public class GameplayManager: MonoBehaviour
             menuManager.ResumeGameplay();
         }
 
-        if (playerManager.player.transform.position.y < 0 && !menuManager.gameOverScreen)
+        if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 50 && playerManager.playerLives > 0)
+        {
+            platformManager.RestartPlatform();
+            playerManager.playerLives--;
+        }
+
+        if (playerManager.playerLives == 0 && playerManager.player.transform.position.y < 0 && !menuManager.gameOverScreen)
         {
             points = CoinManager.GetComponent<CoinSpawner>().score;
             menuManager.GameOver(points);
