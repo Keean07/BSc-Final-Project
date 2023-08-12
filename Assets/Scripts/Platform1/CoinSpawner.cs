@@ -30,7 +30,6 @@ public class CoinSpawner : MonoBehaviour
     {
         // Save current platform from platform manager script
         currentPlatform = platformManager.currentPlatform;
-
         // Create list to store coins
         coinsList = new List<GameObject>();
 
@@ -55,9 +54,8 @@ public class CoinSpawner : MonoBehaviour
     {
         // Clear out current coins
         coinsList.Clear();
-
         // Fill coins list with platforms children (the coins)
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < currentPlatform.transform.childCount; i++)
         {
             child = currentPlatform.transform.GetChild(i).gameObject;
             coinsList.Add(child);

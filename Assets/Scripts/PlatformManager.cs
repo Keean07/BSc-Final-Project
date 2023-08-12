@@ -13,14 +13,12 @@ public class PlatformManager : MonoBehaviour
     private CameraManager cameraManager;
 
     [SerializeField] GameObject player;
-    [SerializeField] public GameObject platform1;
+    [SerializeField] GameObject platform1;
     [SerializeField] GameObject platform2;
 
-    public GameObject currentPlatform;
+    [HideInInspector] public GameObject currentPlatform;
 
     private List<GameObject> platformList;
-
-    private CoinSpawner coinSpawner1;
 
     private Vector3 Spawn1;
     private Vector3 Spawn2;
@@ -30,10 +28,12 @@ public class PlatformManager : MonoBehaviour
     {
         currentPlatform = platform1;
 
-        platformList.Add(platform1);
-        platformList.Add(platform2);
+        platformList = new List<GameObject>
+        {
+            platform1,
+            platform2
+        };
 
-        coinSpawner1 = platform1.GetComponent<CoinSpawner>();
         cameraManager = CameraManager.GetComponent<CameraManager>();
         Spawn1 = new Vector3(0.0f, 11.0f, 0.0f);
         Spawn2 = new Vector3(0.0f, 22.0f, 11.0f);
