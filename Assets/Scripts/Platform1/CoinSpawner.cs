@@ -86,6 +86,7 @@ public class CoinSpawner : MonoBehaviour
         Debug.Log("Next Platform...");
         platformManager.NextPlatform();
         currentPlatform = platformManager.currentPlatform;
+        platformManager.ResetPlayer();
         FillCoinsList();
     }
 

@@ -54,7 +54,24 @@ public class PlatformManager : MonoBehaviour
     // Move player ball to the center of current platform and remove any current velocity
     public void RestartPlatform()
     {
-        player.transform.position = new Vector3(currentPlatform.transform.position.x, currentPlatform.transform.position.y + 2, currentPlatform.transform.position.z);
+        // Reset platform angular velocity
+        currentPlatform.GetComponent<Rigidbody>().angularVelocity = new Vector3(0.0f, 0.0f, 0.0f);
+        // Reset platform rotation
+        currentPlatform.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        ResetPlayer();
+    }
+
+    public void ResetPlayer()
+    {
+        // Reset player position
+        player.transform.position = new Vector3(
+            currentPlatform.transform.position.x,
+            currentPlatform.transform.position.y + 2,
+            currentPlatform.transform.position.z
+            );
+        // Reset player velocity
         player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+        // Reset player angular velocity
+        player.GetComponent<Rigidbody>().angularVelocity = new Vector3(0.0f, 0.0f, 0.0f);
     }
 }
