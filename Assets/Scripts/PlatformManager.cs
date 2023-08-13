@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlatformManager : MonoBehaviour
@@ -50,9 +51,10 @@ public class PlatformManager : MonoBehaviour
         }
         currentPlatform = platform2;
     }
-
+    // Move player ball to the center of current platform and remove any current velocity
     public void RestartPlatform()
     {
-        player.transform.position = currentPlatform.transform.position + new Vector3(0, 5, 0);
+        player.transform.position = new Vector3(currentPlatform.transform.position.x, currentPlatform.transform.position.y + 2, currentPlatform.transform.position.z);
+        player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
     }
 }

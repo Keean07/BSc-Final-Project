@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         pointsText.text = "Points: " + coinSpawner.score;
-        livesText.text = "LivesL " + playerLives;
+        livesText.text = "Lives: " + playerLives;
     }
 
 }

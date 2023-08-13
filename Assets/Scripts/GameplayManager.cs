@@ -45,7 +45,7 @@ public class GameplayManager: MonoBehaviour
             menuManager.ResumeGameplay();
         }
 
-        if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 50 && playerManager.playerLives > 0)
+        if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 10 && playerManager.playerLives > 0)
         {
             platformManager.RestartPlatform();
             playerManager.playerLives--;
