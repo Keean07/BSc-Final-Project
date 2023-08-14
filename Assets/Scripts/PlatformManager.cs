@@ -35,12 +35,6 @@ public class PlatformManager : MonoBehaviour
         Spawn2 = new Vector3(0.0f, 22.0f, 11.0f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void NextPlatform()
     {
         if (currentPlatform == platform1)

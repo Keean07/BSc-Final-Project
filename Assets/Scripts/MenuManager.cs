@@ -34,11 +34,15 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button optionsPanelBackButton;
     [SerializeField] private GameObject confirmQuitPanel;
 
+    [SerializeField] private GameObject diedPanel;
+    [SerializeField] private TMP_Text playerDiedText;
+
     // Here are all my flags:
     //private bool restart;
     public bool gameOverScreen;
     public bool optionsScreen;
     public bool pauseScreen;
+    public bool diedScreen;
 
     //private int points;
     private EventSystem eventSystem;
@@ -59,6 +63,7 @@ public class MenuManager : MonoBehaviour
         gameOverScreen = false;
         optionsScreen = false;
         pauseScreen = false;
+        diedScreen = false;
     }
 
     // Update is called once per frame
@@ -112,6 +117,21 @@ public class MenuManager : MonoBehaviour
         firstSelectedButton.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
         pauseScreen = true;
         optionsScreen = false;
+    }
+
+    public void PlayerDied(int lives)
+    {
+        playerDiedText.text = "YOU DIED..\r\nYOU HAVE " + lives + " LIVES LEFT\r\nPRESS ENTER TO START AGAIN";
+        diedPanel.SetActive(true);
+        diedScreen = true;
+        Time.timeScale = 0;
+    }
+
+    public void PlayerRespawn()
+    {
+        diedPanel.SetActive(false);
+        diedScreen = false;
+        Time.timeScale = 1;
     }
 
     public void RestartGame()

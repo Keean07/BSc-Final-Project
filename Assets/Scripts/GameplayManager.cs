@@ -49,12 +49,17 @@ public class GameplayManager: MonoBehaviour
         {
             platformManager.RestartPlatform();
             playerManager.playerLives--;
+            menuManager.PlayerDied(playerManager.playerLives);
         }
 
         if (playerManager.playerLives == 0 && playerManager.player.transform.position.y < 0 && !menuManager.gameOverScreen)
         {
-            points = CoinManager.GetComponent<CoinSpawner>().score;
-            menuManager.GameOver(points);
+            menuManager.GameOver(CoinManager.GetComponent<CoinSpawner>().score);
+        }
+
+        if (menuManager.diedScreen && Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            menuManager.PlayerRespawn();
         }
     }
 }
