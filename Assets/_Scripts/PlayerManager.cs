@@ -6,7 +6,7 @@ using TMPro;
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] public GameObject player;
-    [SerializeField] private CoinSpawner coinSpawner;
+    [SerializeField] private CoinManager coinManager;
     [SerializeField] TMP_Text pointsText;
     [SerializeField] TMP_Text livesText;
 
@@ -21,7 +21,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        pointsText.text = "Points: " + coinSpawner.score;
+        pointsText.text = "Points: " + coinManager.score;
         livesText.text = "Lives: " + playerLives;
     }
 

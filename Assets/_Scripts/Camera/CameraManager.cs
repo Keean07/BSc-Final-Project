@@ -28,18 +28,26 @@ public class CameraManager : MonoBehaviour
         
     }
 
-    public void CamToPlatform(int i)
+    public void CamToPlatform(GameObject platform)
     {
-        if (i == 1)
-        {
-            cam.transform.position = plat1pos;
-            cam.transform.rotation = plat1rot;
-        }
-        
-        if (i == 2)
-        {
-            cam.transform.position = plat2pos;
-            cam.transform.rotation = plat2rot;
-        }
+        //if (i == 1)
+        //{
+        //    cam.transform.position = plat1pos;
+        //    cam.transform.rotation = plat1rot;
+        //}
+
+        //if (i == 2)
+        //{
+        //    cam.transform.position = plat2pos;
+        //    cam.transform.rotation = plat2rot;
+        //}
+
+        cam.transform.position = new Vector3(
+            platform.transform.position.x,
+            platform.transform.position.y + 4.0f,
+            platform.transform.position.z - 4.0f
+            );
+
+        cam.transform.rotation = Quaternion.Euler(50.0f, 0.0f, 0.0f);
     }
 }

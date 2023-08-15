@@ -37,12 +37,15 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject diedPanel;
     [SerializeField] private TMP_Text playerDiedText;
 
+    [SerializeField] private GameObject progressPanel;
+
     // Here are all my flags:
     //private bool restart;
     public bool gameOverScreen;
     public bool optionsScreen;
     public bool pauseScreen;
     public bool diedScreen;
+    public bool progressScreen;
 
     //private int points;
     private EventSystem eventSystem;
@@ -64,12 +67,7 @@ public class MenuManager : MonoBehaviour
         optionsScreen = false;
         pauseScreen = false;
         diedScreen = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        progressScreen = false;
     }
 
     public void BeginGameplay()
@@ -132,6 +130,20 @@ public class MenuManager : MonoBehaviour
         diedPanel.SetActive(false);
         diedScreen = false;
         Time.timeScale = 1;
+    }
+
+    public void PlayerProgess()
+    {
+        Time.timeScale = 0;
+        progressPanel.SetActive(true);
+        progressScreen = true;
+    }
+
+    public void BeginNext()
+    {
+        Time.timeScale = 1;
+        progressPanel.SetActive(false);
+        progressScreen = false;
     }
 
     public void RestartGame()

@@ -35,15 +35,15 @@ public class PlatformManager : MonoBehaviour
         Spawn2 = new Vector3(0.0f, 22.0f, 11.0f);
     }
 
+    // Move player and camera to new platform location
     public void NextPlatform()
     {
-        if (currentPlatform == platform1)
+        if (currentPlatform = platform1)
         {
-            player.transform.position = Spawn2;
-            cameraManager.CamToPlatform(2);
-
+            currentPlatform = platform2;
         }
-        currentPlatform = platform2;
+        cameraManager.CamToPlatform(currentPlatform);
+        ResetPlayer();
     }
     // Move player ball to the center of current platform and remove any current velocity
     public void RestartPlatform()

@@ -30,21 +30,25 @@ public class GameplayManager: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Close welcome message and begin gameplay
         if (Input.anyKey)
         {
             menuManager.BeginGameplay();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape) && !menuManager.gameOverScreen && !menuManager.optionsScreen && !menuManager.pauseScreen)
+        // Open pause menu
+        if (Input.GetKeyDown(KeyCode.Escape) && !menuManager.gameOverScreen && !menuManager.optionsScreen && !menuManager.pauseScreen && !menuManager.diedScreen && !menuManager.progressScreen)
         {
             menuManager.PauseGameplay();
         }
 
+        // Close pause menu
         if (Input.GetKeyDown(KeyCode.Escape) && (menuManager.pauseScreen || menuManager.optionsScreen))
         {
             menuManager.ResumeGameplay();
         }
 
+        // If player falls off current platform
         if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 10 && playerManager.playerLives > 0)
         {
             platformManager.RestartPlatform();
@@ -52,14 +56,28 @@ public class GameplayManager: MonoBehaviour
             menuManager.PlayerDied(playerManager.playerLives);
         }
 
+        // If player runs out of lives
         if (playerManager.playerLives == 0 && playerManager.player.transform.position.y < 0 && !menuManager.gameOverScreen)
         {
-            menuManager.GameOver(CoinManager.GetComponent<CoinSpawner>().score);
+            menuManager.GameOver(CoinManager.GetComponent<CoinManager>().score);
         }
 
-        if (menuManager.diedScreen && Input.GetKeyDown(KeyCode.KeypadEnter))
+        // Respawn player
+        if (menuManager.diedScreen && Input.GetKeyDown(KeyCode.Return))
         {
             menuManager.PlayerRespawn();
+        }
+
+        // Pause gameplay when completed platform
+        if (!coinManager.GetComponent<CoinManager>().remaining)
+        {
+            menuManager.PlayerProgess();
+        }
+
+        // Player begins next platform
+        if (menuManager.progressScreen && Input.GetKeyDown(KeyCode.Return))
+        {
+            menuManager.BeginNext();
         }
     }
 }

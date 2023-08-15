@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class CoinSpawner : MonoBehaviour
+public class CoinManager : MonoBehaviour
 {
     [SerializeField] private GameObject coin;
     [SerializeField] private PlatformManager platformManager;
@@ -17,9 +17,11 @@ public class CoinSpawner : MonoBehaviour
 
     public int score;
 
-    private float rotatespeed = 120;
+    private readonly float rotatespeed = 120;
 
-    private Vector3 rotationDirection = new Vector3(0, 0, 1);
+    private Vector3 rotationDirection = new(0, 0, 1);
+
+    public bool remaining = true;
 
 
     // Start is called before the first frame update
@@ -45,8 +47,6 @@ public class CoinSpawner : MonoBehaviour
 
     private void FillCoinsList()
     {
-        // Clear out current coins
-        coinsList.Clear();
         // Fill coins list with platforms children (the coins)
         for (int i = 0; i < currentPlatform.transform.childCount; i++)
         {
@@ -64,9 +64,7 @@ public class CoinSpawner : MonoBehaviour
     }
 
     private void CheckCoins()
-    {
-        bool remaining = false;
-
+    {        
         for (int i = 0; i < coinsList.Count; i++)
         {
             if (coinsList[i].activeSelf == true)
@@ -77,16 +75,15 @@ public class CoinSpawner : MonoBehaviour
 
         if (remaining == false)
         {
+            coinsList.Clear();
             ChangePlatform();
         }
     }
 
-    private void ChangePlatform()
+    public void ChangePlatform()
     {
-        Debug.Log("Next Platform...");
         platformManager.NextPlatform();
         currentPlatform = platformManager.currentPlatform;
-        platformManager.ResetPlayer();
         FillCoinsList();
     }
 
