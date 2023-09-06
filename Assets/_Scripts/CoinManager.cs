@@ -7,11 +7,15 @@ using System;
 public class CoinManager : MonoBehaviour
 {
     [SerializeField] private GameObject coin;
+    [SerializeField] private GameObject health;
     [SerializeField] private PlatformManager platformManager;
+    [SerializeField] private PlayerManager playerManager;
 
     private GameObject currentPlatform;
 
     public List<GameObject> coinsList;
+
+    public List<GameObject> healthList;
 
     private GameObject child;
 
@@ -33,6 +37,9 @@ public class CoinManager : MonoBehaviour
         // Create list to store coins
         coinsList = new List<GameObject>();
 
+        // Create list to store health pickups
+        healthList = new List<GameObject>();
+
         // Clear and fill coins list with platforms coins
         FillCoinsList();
 
@@ -52,7 +59,13 @@ public class CoinManager : MonoBehaviour
         for (int i = 0; i < currentPlatform.transform.childCount; i++)
         {
             child = currentPlatform.transform.GetChild(i).gameObject;
-            coinsList.Add(child);
+            if (child.CompareTag("coin")) {
+                coinsList.Add(child);
+            } 
+            else if (child.CompareTag("Health"))
+            {
+                healthList.Add(child);
+            }
         }
     }
 
@@ -61,6 +74,11 @@ public class CoinManager : MonoBehaviour
         for (int i = 0; i < coinsList.Count; i++)
         {
             coinsList[i].transform.Rotate(rotatespeed * rotationDirection * Time.deltaTime);
+        }
+        
+        for (int i = 0; i < healthList.Count; i++)
+        {
+            healthList[i].transform.Rotate(rotatespeed * rotationDirection * Time.deltaTime);
         }
     }
 
@@ -127,6 +145,15 @@ public class CoinManager : MonoBehaviour
             {
                 coinsList[i].SetActive(false);
                 score++;
+            }
+        }
+        
+        for (int i = 0; i < healthList.Count;i++)
+        {
+            if (collider.gameObject == healthList[i])
+            {
+                healthList[i].SetActive(false);
+                playerManager.playerLives++;
             }
         }
     }

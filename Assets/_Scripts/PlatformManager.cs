@@ -11,6 +11,7 @@ public class PlatformManager : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] GameObject platform1;
     [SerializeField] GameObject platform2;
+    [SerializeField] GameObject platform3;
 
     [HideInInspector] public GameObject currentPlatform;
 
@@ -27,7 +28,8 @@ public class PlatformManager : MonoBehaviour
         platformList = new List<GameObject>
         {
             platform1,
-            platform2
+            platform2,
+            platform3
         };
 
         cameraManager = CameraManager.GetComponent<CameraManager>();
@@ -38,9 +40,12 @@ public class PlatformManager : MonoBehaviour
     // Move player and camera to new platform location
     public void NextPlatform()
     {
-        if (currentPlatform = platform1)
+        if (currentPlatform == platform1)
         {
             currentPlatform = platform2;
+        } else if (currentPlatform == platform2)
+        {
+            currentPlatform = platform3;
         }
         cameraManager.CamToPlatform(currentPlatform);
         ResetPlayer();
@@ -60,7 +65,7 @@ public class PlatformManager : MonoBehaviour
         // Reset player position
         player.transform.position = new Vector3(
             currentPlatform.transform.position.x,
-            currentPlatform.transform.position.y + 2,
+            currentPlatform.transform.position.y + 5,
             currentPlatform.transform.position.z
             );
         // Reset player velocity

@@ -49,6 +49,8 @@ public class MenuManager : MonoBehaviour
     public bool diedScreen;
     public bool progressScreen;
 
+    public bool living;
+
     //private int points;
     private EventSystem eventSystem;
     private EventSystem firstSelectedButton;
@@ -74,6 +76,7 @@ public class MenuManager : MonoBehaviour
 
     public void BeginGameplay()
     {
+        living = true;
         welcomePanel.SetActive(false);
     }
 
@@ -128,12 +131,14 @@ public class MenuManager : MonoBehaviour
         diedPanel.SetActive(true);
         diedScreen = true;
         //Time.timeScale = 0;
+        living = false;
     }
 
     public void PlayerRespawn()
     {
         diedPanel.SetActive(false);
         diedScreen = false;
+        living = true;
         Time.timeScale = 1;
     }
 

@@ -27,6 +27,7 @@ public class GameplayManager: MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(1.0f / Time.deltaTime);
         // Close welcome message and begin gameplay
         if (Input.anyKey)
         {
@@ -66,6 +67,7 @@ public class GameplayManager: MonoBehaviour
 
         // Respawn player
         if (menuManager.diedScreen && Input.GetKeyDown(KeyCode.Return))
+        //if (!menuManager.living)
         {
             platformManager.RestartPlatform();
             menuManager.PlayerRespawn();
