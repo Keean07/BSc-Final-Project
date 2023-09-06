@@ -21,12 +21,13 @@ public class CoinManager : MonoBehaviour
 
     private Vector3 rotationDirection = new(0, 0, 1);
 
-    public bool remaining = true;
+    public bool remaining;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        remaining = true;
         // Save current platform from platform manager script
         currentPlatform = platformManager.currentPlatform;
         // Create list to store coins
@@ -36,7 +37,7 @@ public class CoinManager : MonoBehaviour
         FillCoinsList();
 
         // Call CheckCoins after 1 second, and then every 1 second
-        InvokeRepeating(nameof(CheckCoins), 1f, 1f);
+        InvokeRepeating(nameof(CheckCoins), 1f, 0.1f);
     }
 
     // Update is called once per frame
@@ -63,13 +64,18 @@ public class CoinManager : MonoBehaviour
         }
     }
 
-    private void CheckCoins()
+    public void CheckCoins()
     {        
         for (int i = 0; i < coinsList.Count; i++)
         {
             if (coinsList[i].activeSelf == true)
             {
                 remaining = true;
+                break;
+            }
+            else
+            {
+                remaining = false;
             }
         }
 

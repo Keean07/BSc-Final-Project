@@ -49,15 +49,15 @@ public class GameplayManager: MonoBehaviour
         }
 
         // If player falls off current platform
-        if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 10 && playerManager.playerLives > 0)
+        if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 3 && playerManager.playerLives > 0)
         {
-            platformManager.RestartPlatform();
+            //platformManager.RestartPlatform();
             playerManager.playerLives--;
             menuManager.PlayerDied(playerManager.playerLives);
         }
 
         // If player runs out of lives
-        if (playerManager.playerLives == 0 && playerManager.player.transform.position.y < 0 && !menuManager.gameOverScreen)
+        if (playerManager.playerLives == 0 && playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 3 && !menuManager.gameOverScreen)
         {
             menuManager.GameOver(CoinManager.GetComponent<CoinManager>().score);
         }
@@ -65,11 +65,12 @@ public class GameplayManager: MonoBehaviour
         // Respawn player
         if (menuManager.diedScreen && Input.GetKeyDown(KeyCode.Return))
         {
+            platformManager.RestartPlatform();
             menuManager.PlayerRespawn();
         }
 
         // Pause gameplay when completed platform
-        if (!coinManager.GetComponent<CoinManager>().remaining)
+        if (!coinManager.GetComponent<CoinManager>().remaining && !menuManager.progressScreen)
         {
             menuManager.PlayerProgess();
         }
@@ -78,6 +79,8 @@ public class GameplayManager: MonoBehaviour
         if (menuManager.progressScreen && Input.GetKeyDown(KeyCode.Return))
         {
             menuManager.BeginNext();
+            coinManager.CheckCoins();
+            Debug.Log("Starting next");
         }
     }
 }

@@ -39,6 +39,8 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private GameObject progressPanel;
 
+    [SerializeField] AudioManager audioManager;
+
     // Here are all my flags:
     //private bool restart;
     public bool gameOverScreen;
@@ -119,10 +121,11 @@ public class MenuManager : MonoBehaviour
 
     public void PlayerDied(int lives)
     {
+        audioManager.DeathSound();
         playerDiedText.text = "YOU DIED..\r\nYOU HAVE " + lives + " LIVES LEFT\r\nPRESS ENTER TO START AGAIN";
         diedPanel.SetActive(true);
         diedScreen = true;
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
     }
 
     public void PlayerRespawn()
@@ -134,6 +137,7 @@ public class MenuManager : MonoBehaviour
 
     public void PlayerProgess()
     {
+        audioManager.ProgressSound();
         Time.timeScale = 0;
         progressPanel.SetActive(true);
         progressScreen = true;
@@ -141,9 +145,9 @@ public class MenuManager : MonoBehaviour
 
     public void BeginNext()
     {
-        Time.timeScale = 1;
         progressPanel.SetActive(false);
         progressScreen = false;
+        Time.timeScale = 1;
     }
 
     public void RestartGame()
