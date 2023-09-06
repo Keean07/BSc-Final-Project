@@ -16,9 +16,6 @@ public class GameplayManager: MonoBehaviour
     private PlatformManager platformManager;
     private CoinManager coinManager;
 
-    // Here are all my flags:
-    private int points;
-
     void Start()
     {
         menuManager = MenuManager.GetComponent<MenuManager>();
@@ -48,18 +45,23 @@ public class GameplayManager: MonoBehaviour
             menuManager.ResumeGameplay();
         }
 
-        // If player falls off current platform
-        if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 3 && playerManager.playerLives > 0)
+        // If player falls off platform
+        if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 3)
         {
-            //platformManager.RestartPlatform();
-            playerManager.playerLives--;
-            menuManager.PlayerDied(playerManager.playerLives);
-        }
+            if (!menuManager.gameOverScreen && !menuManager.diedScreen) 
+            {
+                // If player still has lives
+                if (playerManager.playerLives > 0)
+                {
+                    menuManager.PlayerDied();
+                }
+                // If player is out of lives
+                else if (playerManager.playerLives == 0)
+                {
+                    menuManager.GameOver(CoinManager.GetComponent<CoinManager>().score);
+                }
 
-        // If player runs out of lives
-        if (playerManager.playerLives == 0 && playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 3 && !menuManager.gameOverScreen)
-        {
-            menuManager.GameOver(CoinManager.GetComponent<CoinManager>().score);
+            }
         }
 
         // Respawn player

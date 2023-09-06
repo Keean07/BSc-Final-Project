@@ -9,7 +9,6 @@ using UnityEngine.EventSystems;
 public class MenuManager : MonoBehaviour
 {
     //[SerializeField] private GameObject GameManager;
-    //[SerializeField] private GameObject PlayerManager;
     //[SerializeField] private GameObject PlatformManager;
     //[SerializeField] private GameObject CoinManager;
 
@@ -39,6 +38,7 @@ public class MenuManager : MonoBehaviour
 
     [SerializeField] private GameObject progressPanel;
 
+    [SerializeField] PlayerManager playerManager;
     [SerializeField] AudioManager audioManager;
 
     // Here are all my flags:
@@ -119,10 +119,12 @@ public class MenuManager : MonoBehaviour
         optionsScreen = false;
     }
 
-    public void PlayerDied(int lives)
+    public void PlayerDied()
     {
+        playerManager.playerLives--;
+        Debug.Log(playerManager.playerLives);
         audioManager.DeathSound();
-        playerDiedText.text = "YOU DIED..\r\nYOU HAVE " + lives + " LIVES LEFT\r\nPRESS ENTER TO START AGAIN";
+        playerDiedText.text = "YOU DIED..\r\nYOU HAVE " + playerManager.playerLives + " LIVES LEFT\r\nPRESS ENTER TO START AGAIN";
         diedPanel.SetActive(true);
         diedScreen = true;
         //Time.timeScale = 0;
