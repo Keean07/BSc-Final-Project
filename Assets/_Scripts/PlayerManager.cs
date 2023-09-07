@@ -25,4 +25,9 @@ public class PlayerManager : MonoBehaviour
         livesText.text = "Lives: " + playerLives;
     }
 
+    public void LoseLife()
+    {
+        playerLives--;
+    }
+
 }

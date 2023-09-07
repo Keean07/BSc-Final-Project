@@ -22,6 +22,10 @@ public class GameplayManager: MonoBehaviour
         platformManager = PlatformManager.GetComponent<PlatformManager>();
         playerManager = PlayerManager.GetComponent<PlayerManager>();
         coinManager = CoinManager.GetComponent<CoinManager>();
+
+        // Begin Gameplay loop with welcome screen
+        menuManager.WelcomeScreen();
+        Time.timeScale = 0.0f;
     }
 
     // Update is called once per frame
@@ -29,21 +33,24 @@ public class GameplayManager: MonoBehaviour
     {
         //Debug.Log(1.0f / Time.deltaTime);
         // Close welcome message and begin gameplay
-        if (Input.anyKey)
+        if (Input.anyKey && menuManager.welcomeScreen)
         {
             menuManager.BeginGameplay();
+            Time.timeScale = 1f;
         }
 
         // Open pause menu
         if (Input.GetKeyDown(KeyCode.Escape) && !menuManager.gameOverScreen && !menuManager.optionsScreen && !menuManager.pauseScreen && !menuManager.diedScreen && !menuManager.progressScreen)
         {
             menuManager.PauseGameplay();
+            Time.timeScale = 0;
         }
 
         // Close pause menu
         if (Input.GetKeyDown(KeyCode.Escape) && (menuManager.pauseScreen || menuManager.optionsScreen))
         {
             menuManager.ResumeGameplay();
+            Time.timeScale = 1;
         }
 
         // If player falls off platform
@@ -61,30 +68,40 @@ public class GameplayManager: MonoBehaviour
                 {
                     menuManager.GameOver(CoinManager.GetComponent<CoinManager>().score);
                 }
-
+                //Time.timeScale = 0;
             }
         }
 
         // Respawn player
         if (menuManager.diedScreen && Input.GetKeyDown(KeyCode.Return))
-        //if (!menuManager.living)
         {
             platformManager.RestartPlatform();
+            platformManager.ResetPlayer();
             menuManager.PlayerRespawn();
+            Time.timeScale = 1;
         }
 
         // Pause gameplay when completed platform
         if (!coinManager.GetComponent<CoinManager>().remaining && !menuManager.progressScreen)
         {
             menuManager.PlayerProgess();
+            Time.timeScale = 0;
         }
 
         // Player begins next platform
         if (menuManager.progressScreen && Input.GetKeyDown(KeyCode.Return))
         {
+            platformManager.RestartPlatform();
+            platformManager.ResetPlayer();
             menuManager.BeginNext();
             coinManager.CheckCoins();
-            Debug.Log("Starting next");
+            Time.timeScale = 1;
         }
+    }
+
+    public void PlayerProgress()
+    {
+        platformManager.NextPlatform();
+        coinManager.currentPlatform = platformManager.currentPlatform;
     }
 }

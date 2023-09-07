@@ -48,6 +48,7 @@ public class MenuManager : MonoBehaviour
     public bool pauseScreen;
     public bool diedScreen;
     public bool progressScreen;
+    public bool welcomeScreen;
 
     public bool living;
 
@@ -72,24 +73,32 @@ public class MenuManager : MonoBehaviour
         pauseScreen = false;
         diedScreen = false;
         progressScreen = false;
+        welcomeScreen = false;
+
+    }
+
+    public void WelcomeScreen()
+    {
+        welcomePanel.SetActive(true);
+        welcomeScreen = true;
     }
 
     public void BeginGameplay()
     {
         living = true;
         welcomePanel.SetActive(false);
+
+        welcomeScreen = false;
     }
 
     public void PauseGameplay()
     {
-        Time.timeScale = 0;
         pausePanel.SetActive(true);
         firstSelectedButton.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
     }
 
     public void ResumeGameplay()
     {
-        Time.timeScale = 1;
         pausePanel.SetActive(false);
         optionsPanel.SetActive(false);
         pauseScreen = false;
@@ -124,13 +133,11 @@ public class MenuManager : MonoBehaviour
 
     public void PlayerDied()
     {
-        playerManager.playerLives--;
-        Debug.Log(playerManager.playerLives);
+        playerManager.LoseLife();
         audioManager.DeathSound();
         playerDiedText.text = "YOU DIED..\r\nYOU HAVE " + playerManager.playerLives + " LIVES LEFT\r\nPRESS ENTER TO START AGAIN";
         diedPanel.SetActive(true);
         diedScreen = true;
-        //Time.timeScale = 0;
         living = false;
     }
 
@@ -139,13 +146,11 @@ public class MenuManager : MonoBehaviour
         diedPanel.SetActive(false);
         diedScreen = false;
         living = true;
-        Time.timeScale = 1;
     }
 
     public void PlayerProgess()
     {
         audioManager.ProgressSound();
-        Time.timeScale = 0;
         progressPanel.SetActive(true);
         progressScreen = true;
     }
@@ -154,7 +159,6 @@ public class MenuManager : MonoBehaviour
     {
         progressPanel.SetActive(false);
         progressScreen = false;
-        Time.timeScale = 1;
     }
 
     public void RestartGame()

@@ -8,10 +8,11 @@ public class CoinManager : MonoBehaviour
 {
     [SerializeField] private GameObject coin;
     [SerializeField] private GameObject health;
-    [SerializeField] private PlatformManager platformManager;
     [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private GameplayManager gameplayManager;
+    [SerializeField] private PlatformManager platformManager;
 
-    private GameObject currentPlatform;
+    public GameObject currentPlatform;
 
     public List<GameObject> coinsList;
 
@@ -32,13 +33,15 @@ public class CoinManager : MonoBehaviour
     void Start()
     {
         remaining = true;
-        // Save current platform from platform manager script
-        currentPlatform = platformManager.currentPlatform;
+        
         // Create list to store coins
         coinsList = new List<GameObject>();
 
         // Create list to store health pickups
         healthList = new List<GameObject>();
+
+        // Set Coin Manager current platform from platform manager script
+        currentPlatform = platformManager.currentPlatform;
 
         // Clear and fill coins list with platforms coins
         FillCoinsList();
@@ -73,12 +76,12 @@ public class CoinManager : MonoBehaviour
     {
         for (int i = 0; i < coinsList.Count; i++)
         {
-            coinsList[i].transform.Rotate(rotatespeed * rotationDirection * Time.deltaTime);
+            coinsList[i].transform.Rotate(rotatespeed * Time.deltaTime * rotationDirection);
         }
         
         for (int i = 0; i < healthList.Count; i++)
         {
-            healthList[i].transform.Rotate(rotatespeed * rotationDirection * Time.deltaTime);
+            healthList[i].transform.Rotate(rotatespeed * Time.deltaTime * rotationDirection);
         }
     }
 
@@ -106,8 +109,7 @@ public class CoinManager : MonoBehaviour
 
     public void ChangePlatform()
     {
-        platformManager.NextPlatform();
-        currentPlatform = platformManager.currentPlatform;
+        gameplayManager.PlayerProgress();
         FillCoinsList();
     }
 

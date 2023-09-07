@@ -6,12 +6,16 @@ using UnityEngine;
 public class PlatformManager : MonoBehaviour
 {
     [SerializeField] private GameObject CameraManager;
+    [SerializeField] private BallMoving ballMoving;
     private CameraManager cameraManager;
 
     [SerializeField] GameObject player;
     [SerializeField] GameObject platform1;
     [SerializeField] GameObject platform2;
     [SerializeField] GameObject platform3;
+    [SerializeField] GameObject platform4;
+    [SerializeField] GameObject platform5;
+    [SerializeField] GameObject platform6;
 
     [HideInInspector] public GameObject currentPlatform;
 
@@ -29,7 +33,10 @@ public class PlatformManager : MonoBehaviour
         {
             platform1,
             platform2,
-            platform3
+            platform3,
+            platform4,
+            platform5,
+            platform6
         };
 
         cameraManager = CameraManager.GetComponent<CameraManager>();
@@ -46,9 +53,18 @@ public class PlatformManager : MonoBehaviour
         } else if (currentPlatform == platform2)
         {
             currentPlatform = platform3;
+        } else if (currentPlatform == platform3)
+        {
+            currentPlatform = platform4;
+        } else if (currentPlatform == platform4)
+        {
+            currentPlatform = platform5;
+        } else if (currentPlatform == platform5)
+        {
+            currentPlatform = platform6;
         }
         cameraManager.CamToPlatform(currentPlatform);
-        ResetPlayer();
+        ballMoving.ResetPlayer(currentPlatform);
     }
     // Move player ball to the center of current platform and remove any current velocity
     public void RestartPlatform()
@@ -57,20 +73,10 @@ public class PlatformManager : MonoBehaviour
         currentPlatform.GetComponent<Rigidbody>().angularVelocity = new Vector3(0.0f, 0.0f, 0.0f);
         // Reset platform rotation
         currentPlatform.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-        ResetPlayer();
     }
 
     public void ResetPlayer()
     {
-        // Reset player position
-        player.transform.position = new Vector3(
-            currentPlatform.transform.position.x,
-            currentPlatform.transform.position.y + 5,
-            currentPlatform.transform.position.z
-            );
-        // Reset player velocity
-        player.GetComponent<Rigidbody>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
-        // Reset player angular velocity
-        player.GetComponent<Rigidbody>().angularVelocity = new Vector3(0.0f, 0.0f, 0.0f);
+
     }
 }

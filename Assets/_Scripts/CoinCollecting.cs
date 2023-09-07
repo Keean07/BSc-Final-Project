@@ -12,13 +12,13 @@ public class CoinCollecting : MonoBehaviour
     {
         if (collider.CompareTag("coin"))
         {
-            audioManager.CollectSound();
+            audioManager.CollectCoinSound();
             coinManager.RemoveCoin(collider);
         }
 
         if (collider.CompareTag("Health"))
         {
-            Debug.Log("Life added");
+            audioManager.CollectHealthSound();
             coinManager.RemoveCoin(collider);
         }
     }

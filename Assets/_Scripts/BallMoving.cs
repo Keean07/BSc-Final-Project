@@ -5,34 +5,39 @@ using UnityEngine;
 public class BallMoving : MonoBehaviour
 {
     public float speed;
-    //private bool jump;
+    private Rigidbody rb;
 
     void Start()
     {
-        //jump = false;
+        rb = transform.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //if (Input.GetButtonDown("Jump"))
-        //{
-
-        //    //jump = true;
-        //    Debug.Log("Jump");
-        //}
-
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
-        Vector3 moveBall = new Vector3(horizontal, 0, vertical);
+        Vector3 moveBall = new(horizontal, 0, vertical);
 
-        Rigidbody rb = transform.GetComponent<Rigidbody>();
         rb.AddForce(moveBall * speed);
     }
 
-    //void isGrounded()
-    //{
+    public void ResetPlayer(GameObject currentPlatform)
+    {
+        // Reset player velocity
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        // Reset player angular velocity
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        // Sleep rigidbody
+        GetComponent<Rigidbody>().Sleep();
 
-    //}
+        // Reset player position
+        transform.position = new Vector3(
+            currentPlatform.transform.position.x,
+            currentPlatform.transform.position.y + 5,
+            currentPlatform.transform.position.z
+            );
+    }
+
 }
