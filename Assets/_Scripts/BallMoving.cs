@@ -6,38 +6,47 @@ public class BallMoving : MonoBehaviour
 {
     public float speed;
     private Rigidbody rb;
+    [HideInInspector] public bool reset;
 
     void Start()
     {
         rb = transform.GetComponent<Rigidbody>();
+        reset = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
+        if (!reset)
+        {
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+                
+            Vector3 moveBall = new(horizontal, 0, vertical);
 
-        Vector3 moveBall = new(horizontal, 0, vertical);
-
-        rb.AddForce(moveBall * speed);
+            rb.AddForce(moveBall * speed);
+            Debug.Log("Adding force");
+        }
     }
 
     public void ResetPlayer(GameObject currentPlatform)
     {
+        // Reset player position on current platform
+        transform.position = currentPlatform.transform.position + new Vector3(0f, 5f, 0f);
         // Reset player velocity
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        // Reset player angular velocity
-        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        // Sleep rigidbody
-        GetComponent<Rigidbody>().Sleep();
+        CancelForce();
+    }
 
-        // Reset player position
-        transform.position = new Vector3(
-            currentPlatform.transform.position.x,
-            currentPlatform.transform.position.y + 5,
-            currentPlatform.transform.position.z
-            );
+    public void CancelForce()
+    {
+        // Reset player velocity
+        rb.velocity = Vector3.zero;
+        // Reset player angular velocity
+        rb.angularVelocity = Vector3.zero;
+        // Reset rotation
+        transform.rotation = Quaternion.identity;
+        // Sleep rigidbody
+        rb.Sleep();
     }
 
 }

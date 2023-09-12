@@ -56,7 +56,7 @@ public class CoinManager : MonoBehaviour
         RotateCoins();
     }
 
-    private void FillCoinsList()
+    public void FillCoinsList()
     {
         // Fill coins list with platforms children (the coins)
         for (int i = 0; i < currentPlatform.transform.childCount; i++)
@@ -72,7 +72,7 @@ public class CoinManager : MonoBehaviour
         }
     }
 
-    private void RotateCoins()
+    public void RotateCoins()
     {
         for (int i = 0; i < coinsList.Count; i++)
         {
@@ -110,7 +110,8 @@ public class CoinManager : MonoBehaviour
     public void ChangePlatform()
     {
         gameplayManager.PlayerProgress();
-        FillCoinsList();
+        //FillCoinsList();
+        //CheckCoins();
     }
 
     /***

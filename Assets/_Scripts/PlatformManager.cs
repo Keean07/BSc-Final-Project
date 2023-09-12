@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,7 +8,6 @@ public class PlatformManager : MonoBehaviour
 {
     [SerializeField] private GameObject CameraManager;
     [SerializeField] private BallMoving ballMoving;
-    private CameraManager cameraManager;
 
     [SerializeField] GameObject player;
     [SerializeField] GameObject platform1;
@@ -19,15 +19,20 @@ public class PlatformManager : MonoBehaviour
 
     [HideInInspector] public GameObject currentPlatform;
 
+    private int platIndex = 0;
+
     private List<GameObject> platformList;
 
-    private Vector3 Spawn1;
-    private Vector3 Spawn2;
+    private Rigidbody currentRB;
+
+    //private Vector3 Spawn1;
+    //private Vector3 Spawn2;
 
     // Start is called before the first frame update
     void Start()
     {
         currentPlatform = platform1;
+        currentRB = currentPlatform.GetComponent<Rigidbody>();
 
         platformList = new List<GameObject>
         {
@@ -39,44 +44,30 @@ public class PlatformManager : MonoBehaviour
             platform6
         };
 
-        cameraManager = CameraManager.GetComponent<CameraManager>();
-        Spawn1 = new Vector3(0.0f, 11.0f, 0.0f);
-        Spawn2 = new Vector3(0.0f, 22.0f, 11.0f);
+        //Spawn1 = new Vector3(0.0f, 11.0f, 0.0f);
+        //Spawn2 = new Vector3(0.0f, 22.0f, 11.0f);
     }
 
     // Move player and camera to new platform location
-    public void NextPlatform()
+    public bool NextPlatform()
     {
-        if (currentPlatform == platform1)
+        if (platIndex < platformList.Count - 1)
         {
-            currentPlatform = platform2;
-        } else if (currentPlatform == platform2)
-        {
-            currentPlatform = platform3;
-        } else if (currentPlatform == platform3)
-        {
-            currentPlatform = platform4;
-        } else if (currentPlatform == platform4)
-        {
-            currentPlatform = platform5;
-        } else if (currentPlatform == platform5)
-        {
-            currentPlatform = platform6;
+            platIndex++;
+            currentPlatform = platformList[platIndex];
+            currentRB = currentPlatform.GetComponent<Rigidbody>();
+            return true;
         }
-        cameraManager.CamToPlatform(currentPlatform);
-        ballMoving.ResetPlayer(currentPlatform);
+        else
+        {
+            return false;
+        }
     }
-    // Move player ball to the center of current platform and remove any current velocity
     public void RestartPlatform()
     {
         // Reset platform angular velocity
-        currentPlatform.GetComponent<Rigidbody>().angularVelocity = new Vector3(0.0f, 0.0f, 0.0f);
+        currentRB.angularVelocity = new Vector3(0.0f, 0.0f, 0.0f);
         // Reset platform rotation
         currentPlatform.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-    }
-
-    public void ResetPlayer()
-    {
-
     }
 }
