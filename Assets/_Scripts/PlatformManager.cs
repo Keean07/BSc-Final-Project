@@ -16,6 +16,7 @@ public class PlatformManager : MonoBehaviour
     [SerializeField] GameObject platform4;
     [SerializeField] GameObject platform5;
     [SerializeField] GameObject platform6;
+    [SerializeField] GameObject platform7;
 
     [HideInInspector] public GameObject currentPlatform;
 
@@ -41,7 +42,8 @@ public class PlatformManager : MonoBehaviour
             platform3,
             platform4,
             platform5,
-            platform6
+            platform6,
+            platform7
         };
 
         //Spawn1 = new Vector3(0.0f, 11.0f, 0.0f);
