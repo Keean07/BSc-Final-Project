@@ -114,15 +114,12 @@ public class GameplayManager: MonoBehaviour
         {
             PlayerWins();
         }
-        // Stop time
-        Time.timeScale = 0;
     }
 
     private void BeginNextPlatform()
     {
         //platformManager.RestartPlatform();
         menuManager.BeginNext();
-        Time.timeScale = 1;
         ballMoving.ResetPlayer(platformManager.currentPlatform);
         ballMoving.reset = false;
     }
