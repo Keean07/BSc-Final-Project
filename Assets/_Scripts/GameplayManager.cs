@@ -6,25 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameplayManager: MonoBehaviour
 {
-    [SerializeField] private GameObject MenuManager;
-    [SerializeField] private GameObject PlayerManager;
-    [SerializeField] private GameObject PlatformManager;
-    [SerializeField] private GameObject CoinManager;
-    [SerializeField] private CameraManager cameraManager;
     [SerializeField] private BallMoving ballMoving;
+    [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private MenuManager menuManager;
+    [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private PlatformManager platformManager;
+    [SerializeField] private CoinManager coinManager;
 
-    private MenuManager menuManager;
-    private PlayerManager playerManager;
-    private PlatformManager platformManager;
-    private CoinManager coinManager;
+    private int maxDistUnderPlatform = 3;
 
     void Start()
     {
-        menuManager = MenuManager.GetComponent<MenuManager>();
-        platformManager = PlatformManager.GetComponent<PlatformManager>();
-        playerManager = PlayerManager.GetComponent<PlayerManager>();
-        coinManager = CoinManager.GetComponent<CoinManager>();
-
         // Begin Gameplay loop with welcome screen
         menuManager.WelcomeScreen();
         Time.timeScale = 0.0f;
@@ -37,40 +29,43 @@ public class GameplayManager: MonoBehaviour
         // Close welcome message and begin gameplay
         if (Input.anyKey && menuManager.welcomeScreen)
         {
-            menuManager.BeginGameplay();
-            Time.timeScale = 1f;
+            BeginGameplay();
         }
 
-        // Open pause menu
-        if (Input.GetKeyDown(KeyCode.Escape) && !menuManager.gameOverScreen && !menuManager.optionsScreen && !menuManager.pauseScreen && !menuManager.diedScreen && !menuManager.progressScreen)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            menuManager.PauseGameplay();
-            Time.timeScale = 0;
-        }
-
-        // Close pause menu
-        if (Input.GetKeyDown(KeyCode.Escape) && (menuManager.pauseScreen || menuManager.optionsScreen))
-        {
-            menuManager.ResumeGameplay();
-            Time.timeScale = 1;
+            // Resume Gameplay
+            if (!menuManager.playing && (menuManager.pauseScreen || menuManager.optionsScreen))
+            {
+                Debug.Log("Resuming");
+                ResumeGameplay();
+            }
+            //Pause Gameplay
+            else if (menuManager.playing)
+            {
+                Debug.Log("Pausing");
+                PauseGameplay();
+            }
         }
 
         // If player falls off platform
-        if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - 3)
+        if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - maxDistUnderPlatform)
         {
             PlayerDied();
         }
 
-        // Respawn player
-        if (menuManager.diedScreen && Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            RespawnPlayer();
-        }
-
-        // Player begins next platform
-        if (menuManager.progressScreen && Input.GetKeyDown(KeyCode.Return))
-        {
-            BeginNextPlatform();
+            // Respawn Player
+            if (menuManager.diedScreen)
+            {
+                RespawnPlayer();
+            }
+            // Begin next platform
+            else if (menuManager.progressScreen)
+            {
+                BeginNextPlatform();
+            }
         }
     }
 
@@ -86,7 +81,7 @@ public class GameplayManager: MonoBehaviour
             // If player is out of lives
             else if (playerManager.playerLives < 1)
             {
-                menuManager.GameOver(CoinManager.GetComponent<CoinManager>().score);
+                menuManager.GameOver(coinManager.score);
             }
         }
     }
@@ -115,6 +110,22 @@ public class GameplayManager: MonoBehaviour
             PlayerWins();
         }
     }
+    public void BeginGameplay()
+    {
+        menuManager.BeginGameplay();
+        Time.timeScale = 1f;
+    }
+    public void ResumeGameplay()
+    {
+        menuManager.ResumeGameplay();
+        Time.timeScale = 1;
+    }
+
+    public void PauseGameplay()
+    {
+        menuManager.PauseGameplay();
+        Time.timeScale = 0;
+    }
 
     private void BeginNextPlatform()
     {
@@ -124,7 +135,7 @@ public class GameplayManager: MonoBehaviour
         ballMoving.reset = false;
     }
 
-    private void RespawnPlayer()
+    public void RespawnPlayer()
     {
         platformManager.RestartPlatform();
         ballMoving.ResetPlayer(platformManager.currentPlatform);

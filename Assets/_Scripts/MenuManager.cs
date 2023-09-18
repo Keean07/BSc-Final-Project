@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System.Diagnostics.Contracts;
 
 public class MenuManager : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class MenuManager : MonoBehaviour
     public bool progressScreen;
     public bool welcomeScreen;
     public bool victoryScreen;
+    public bool playing;
 
     //private int points;
     private EventSystem eventSystem;
@@ -59,6 +61,7 @@ public class MenuManager : MonoBehaviour
         welcomeScreen = false;
         victoryScreen = false;
 
+
     }
 
     public void WelcomeScreen()
@@ -70,14 +73,16 @@ public class MenuManager : MonoBehaviour
     public void BeginGameplay()
     {
         welcomePanel.SetActive(false);
-
         welcomeScreen = false;
+        playing = true;
     }
 
     public void PauseGameplay()
     {
         pausePanel.SetActive(true);
         firstSelectedButton.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
+        pauseScreen = true;
+        playing = false;
     }
 
     public void ResumeGameplay()
@@ -86,6 +91,7 @@ public class MenuManager : MonoBehaviour
         optionsPanel.SetActive(false);
         pauseScreen = false;
         optionsScreen= false;
+        playing = true;
     }
 
     public void GameOver(int score)
@@ -94,6 +100,7 @@ public class MenuManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         firstSelectedButton.SetSelectedGameObject(restartButtonObject, new BaseEventData(eventSystem));
         gameOverScreen = true;
+        playing = false;
     }
 
     public void OpenOptions()
@@ -121,12 +128,14 @@ public class MenuManager : MonoBehaviour
         playerDiedText.text = "YOU DIED..\r\nYOU HAVE " + playerManager.playerLives + " LIVES LEFT\r\nPRESS ENTER TO START AGAIN";
         diedPanel.SetActive(true);
         diedScreen = true;
+        playing = false;
     }
 
     public void PlayerRespawn()
     {
         diedPanel.SetActive(false);
         diedScreen = false;
+        playing = true;
     }
 
     public void PlayerProgess()
@@ -134,12 +143,14 @@ public class MenuManager : MonoBehaviour
         audioManager.ProgressSound();
         progressPanel.SetActive(true);
         progressScreen = true;
+        playing = false;
     }
 
     public void BeginNext()
     {
         progressPanel.SetActive(false);
         progressScreen = false;
+        playing = true;
     }
 
     public void RestartGame()

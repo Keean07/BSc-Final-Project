@@ -25,7 +25,7 @@ public class BallMoving : MonoBehaviour
             Vector3 moveBall = new(horizontal, 0, vertical);
 
             rb.AddForce(moveBall * speed);
-            Debug.Log("Adding force");
+            //Debug.Log("Adding force");
         }
     }
 
