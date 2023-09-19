@@ -7,11 +7,16 @@ using System;
 public class CoinManager : MonoBehaviour
 {
     [SerializeField] private GameObject coin;
+    [SerializeField] private GameObject health;
+    [SerializeField] private PlayerManager playerManager;
+    [SerializeField] private GameplayManager gameplayManager;
     [SerializeField] private PlatformManager platformManager;
 
-    private GameObject currentPlatform;
+    public GameObject currentPlatform;
 
     public List<GameObject> coinsList;
+
+    public List<GameObject> healthList;
 
     private GameObject child;
 
@@ -28,10 +33,15 @@ public class CoinManager : MonoBehaviour
     void Start()
     {
         remaining = true;
-        // Save current platform from platform manager script
-        currentPlatform = platformManager.currentPlatform;
+        
         // Create list to store coins
         coinsList = new List<GameObject>();
+
+        // Create list to store health pickups
+        healthList = new List<GameObject>();
+
+        // Set Coin Manager current platform from platform manager script
+        currentPlatform = platformManager.currentPlatform;
 
         // Clear and fill coins list with platforms coins
         FillCoinsList();
@@ -46,21 +56,32 @@ public class CoinManager : MonoBehaviour
         RotateCoins();
     }
 
-    private void FillCoinsList()
+    public void FillCoinsList()
     {
         // Fill coins list with platforms children (the coins)
         for (int i = 0; i < currentPlatform.transform.childCount; i++)
         {
             child = currentPlatform.transform.GetChild(i).gameObject;
-            coinsList.Add(child);
+            if (child.CompareTag("coin")) {
+                coinsList.Add(child);
+            } 
+            else if (child.CompareTag("Health"))
+            {
+                healthList.Add(child);
+            }
         }
     }
 
-    private void RotateCoins()
+    public void RotateCoins()
     {
         for (int i = 0; i < coinsList.Count; i++)
         {
-            coinsList[i].transform.Rotate(rotatespeed * rotationDirection * Time.deltaTime);
+            coinsList[i].transform.Rotate(rotatespeed * Time.deltaTime * rotationDirection);
+        }
+        
+        for (int i = 0; i < healthList.Count; i++)
+        {
+            healthList[i].transform.Rotate(rotatespeed * Time.deltaTime * rotationDirection);
         }
     }
 
@@ -88,9 +109,9 @@ public class CoinManager : MonoBehaviour
 
     public void ChangePlatform()
     {
-        platformManager.NextPlatform();
-        currentPlatform = platformManager.currentPlatform;
-        FillCoinsList();
+        gameplayManager.PlayerProgress();
+        //FillCoinsList();
+        //CheckCoins();
     }
 
     /***
@@ -127,6 +148,15 @@ public class CoinManager : MonoBehaviour
             {
                 coinsList[i].SetActive(false);
                 score++;
+            }
+        }
+        
+        for (int i = 0; i < healthList.Count;i++)
+        {
+            if (collider.gameObject == healthList[i])
+            {
+                healthList[i].SetActive(false);
+                playerManager.playerLives++;
             }
         }
     }

@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource deathAudio;
     [SerializeField] AudioSource coinCollectAudio;
     [SerializeField] AudioSource progressAudio;
+    [SerializeField] AudioSource healthAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class AudioManager : MonoBehaviour
         hoverAudio.Play();
     }
 
-    public void CollectSound()
+    public void CollectCoinSound()
     {
         coinCollectAudio.Play();
     }
@@ -41,5 +42,10 @@ public class AudioManager : MonoBehaviour
     public void ProgressSound()
     {
         progressAudio.Play();
+    }
+
+    public void CollectHealthSound()
+    {
+        healthAudio.Play();
     }
 }

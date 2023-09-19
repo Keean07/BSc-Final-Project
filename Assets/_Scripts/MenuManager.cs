@@ -1,42 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System.Diagnostics.Contracts;
 
 public class MenuManager : MonoBehaviour
 {
-    //[SerializeField] private GameObject GameManager;
-    //[SerializeField] private GameObject PlatformManager;
-    //[SerializeField] private GameObject CoinManager;
-
     [SerializeField] private GameObject welcomePanel;
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text gameOverText;
     [SerializeField] private GameObject restartButtonObject;
-    [SerializeField] private Button restartButton;
-    [SerializeField] private GameObject quitToMainButtonObject;
-    [SerializeField] private Button quitToMainButton;
 
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject pausePanelResumeButtonObject;
-    [SerializeField] private Button pausePanelResumeButton;
-    [SerializeField] private Button pausePanelOptionButtonObject;
-    [SerializeField] private Button pausePanelOptionsButton;
-    [SerializeField] private Button pausePanelQuitButtonObject;
-    [SerializeField] private Button pausePanelQuitButton;
 
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject optionsPanelBackButtonObject;
-    [SerializeField] private Button optionsPanelBackButton;
+
     [SerializeField] private GameObject confirmQuitPanel;
+    [SerializeField] private GameObject cancelQuitButton;
 
     [SerializeField] private GameObject diedPanel;
     [SerializeField] private TMP_Text playerDiedText;
 
     [SerializeField] private GameObject progressPanel;
+
+    [SerializeField] private GameObject victoryPanel;
+    [SerializeField] private GameObject victoryRestartButton;
 
     [SerializeField] PlayerManager playerManager;
     [SerializeField] AudioManager audioManager;
@@ -48,64 +39,71 @@ public class MenuManager : MonoBehaviour
     public bool pauseScreen;
     public bool diedScreen;
     public bool progressScreen;
+    public bool welcomeScreen;
+    public bool victoryScreen;
+    public bool playing;
 
     //private int points;
     private EventSystem eventSystem;
-    private EventSystem firstSelectedButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        eventSystem = EventSystem.current;
-        firstSelectedButton = eventSystem.GetComponent<EventSystem>();
-
-        restartButton.onClick.AddListener(RestartGame);
-        quitToMainButton.onClick.AddListener(QuitToMain);
-        pausePanelResumeButton.onClick.AddListener(ResumeGameplay);
-        pausePanelOptionsButton.onClick.AddListener(OpenOptions);
-        optionsPanelBackButton.onClick.AddListener(CloseOption);
+        eventSystem = EventSystem.current.GetComponent<EventSystem>();
 
         gameOverScreen = false;
         optionsScreen = false;
         pauseScreen = false;
         diedScreen = false;
         progressScreen = false;
+        welcomeScreen = false;
+        victoryScreen = false;
+    }
+
+    public void WelcomeScreen()
+    {
+        welcomePanel.SetActive(true);
+        welcomeScreen = true;
     }
 
     public void BeginGameplay()
     {
         welcomePanel.SetActive(false);
+        welcomeScreen = false;
+        playing = true;
     }
 
     public void PauseGameplay()
     {
-        Time.timeScale = 0;
         pausePanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
+        pauseScreen = true;
+        playing = false;
     }
 
     public void ResumeGameplay()
     {
-        Time.timeScale = 1;
         pausePanel.SetActive(false);
         optionsPanel.SetActive(false);
         pauseScreen = false;
         optionsScreen= false;
+        playing = true;
     }
 
     public void GameOver(int score)
     {
         gameOverText.text = ("Game Over. You got a score of " + score + " : Restart or Quit?");
         gameOverPanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(restartButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(restartButtonObject, new BaseEventData(eventSystem));
         gameOverScreen = true;
+        playing = false;
     }
 
     public void OpenOptions()
     {
         pausePanel.SetActive(false);
         optionsPanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(optionsPanelBackButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(optionsPanelBackButtonObject, new BaseEventData(eventSystem));
         optionsScreen = true;
         pauseScreen = false;
     }
@@ -114,42 +112,41 @@ public class MenuManager : MonoBehaviour
     {
         optionsPanel.SetActive(false);
         pausePanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
         pauseScreen = true;
         optionsScreen = false;
     }
 
     public void PlayerDied()
     {
-        playerManager.playerLives--;
-        Debug.Log(playerManager.playerLives);
+        playerManager.LoseLife();
         audioManager.DeathSound();
         playerDiedText.text = "YOU DIED..\r\nYOU HAVE " + playerManager.playerLives + " LIVES LEFT\r\nPRESS ENTER TO START AGAIN";
         diedPanel.SetActive(true);
         diedScreen = true;
-        //Time.timeScale = 0;
+        playing = false;
     }
 
     public void PlayerRespawn()
     {
         diedPanel.SetActive(false);
         diedScreen = false;
-        Time.timeScale = 1;
+        playing = true;
     }
 
     public void PlayerProgess()
     {
         audioManager.ProgressSound();
-        Time.timeScale = 0;
         progressPanel.SetActive(true);
         progressScreen = true;
+        playing = false;
     }
 
     public void BeginNext()
     {
         progressPanel.SetActive(false);
         progressScreen = false;
-        Time.timeScale = 1;
+        playing = true;
     }
 
     public void RestartGame()
@@ -157,8 +154,34 @@ public class MenuManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void ConfirmQuit()
+    {
+        pausePanel.SetActive(false);
+        confirmQuitPanel.SetActive(true);
+        eventSystem.SetSelectedGameObject(cancelQuitButton, new BaseEventData(eventSystem));
+    }
+
+    public void CancelQuit()
+    {
+        confirmQuitPanel.SetActive(false);
+        pausePanel.SetActive(true);
+        eventSystem.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
+    }
+
     public void QuitToMain()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void Victory()
+    {
+        victoryPanel.SetActive(true);
+        victoryScreen = true;
+        eventSystem.SetSelectedGameObject(victoryRestartButton, new BaseEventData(eventSystem));
+    }
+
+    public void SelectNewButton(GameObject button)
+    {
+        eventSystem.SetSelectedGameObject(button, new BaseEventData(eventSystem));
     }
 }
