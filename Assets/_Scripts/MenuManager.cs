@@ -58,8 +58,6 @@ public class MenuManager : MonoBehaviour
         progressScreen = false;
         welcomeScreen = false;
         victoryScreen = false;
-
-
     }
 
     public void WelcomeScreen()

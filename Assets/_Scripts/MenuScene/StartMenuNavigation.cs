@@ -9,19 +9,12 @@ public class StartMenuNavigation : MonoBehaviour
 {
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private GameObject startButtonObject;
-    [SerializeField] private Button startButton;
-    [SerializeField] private Button optionsButton;
-    [SerializeField] private Button exitButton;
     
     [SerializeField] private GameObject confirmationPanel;
     [SerializeField] private GameObject cancelExitButtonObject;
-    [SerializeField] private Button cancelExitButton;
-    [SerializeField] private GameObject confirmExitButtonObject;
-    [SerializeField] private Button confirmExitButton;
 
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject optionsBackButtonObject;
-    [SerializeField] private Button optionsBackButton;
 
     private EventSystem eventSystem;
 
@@ -74,6 +67,10 @@ public class StartMenuNavigation : MonoBehaviour
         optionsPanel.SetActive(false);
         mainPanel.SetActive(true);
         eventSystem.SetSelectedGameObject(startButtonObject, new BaseEventData(eventSystem));
+    }
+    public void SelectNewButton(GameObject button)
+    {
+        eventSystem.SetSelectedGameObject(button, new BaseEventData(eventSystem));
     }
 
 }
