@@ -24,21 +24,11 @@ public class StartMenuNavigation : MonoBehaviour
     [SerializeField] private Button optionsBackButton;
 
     private EventSystem eventSystem;
-    private EventSystem firstSelectedButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        eventSystem = EventSystem.current;
-
-        startButton.onClick.AddListener(LoadGame);
-        exitButton.onClick.AddListener(RequestQuit);
-        cancelExitButton.onClick.AddListener(CancelQuit);
-        confirmExitButton.onClick.AddListener(ConfirmQuit);
-        optionsButton.onClick.AddListener(OpenOptions);
-        optionsBackButton.onClick.AddListener(CloseOptions);
-
-        firstSelectedButton = eventSystem.GetComponent<EventSystem>();
+        eventSystem = EventSystem.current.GetComponent<EventSystem>();
     }
 
     // Update is called once per frame
@@ -47,41 +37,43 @@ public class StartMenuNavigation : MonoBehaviour
         
     }
 
-    private void LoadGame()
+    public void LoadGame()
     {
         SceneManager.LoadScene(1);
     }
 
-    private void RequestQuit()
+    public void RequestQuit()
     {
+        mainPanel.SetActive(false);
         confirmationPanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(cancelExitButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(cancelExitButtonObject, new BaseEventData(eventSystem));
     }
 
-    private void CancelQuit()
+    public void CancelQuit()
     {
+        mainPanel.SetActive(true);
         confirmationPanel.SetActive(false);
-        firstSelectedButton.SetSelectedGameObject(startButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(startButtonObject, new BaseEventData(eventSystem));
     }
 
-    private void ConfirmQuit()
+    public void ConfirmQuit()
     {
         // Only quits actual game, not game running in editor
         Application.Quit();
     }
 
-    private void OpenOptions()
+    public void OpenOptions()
     {
         mainPanel.SetActive(false);
         optionsPanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(optionsBackButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(optionsBackButtonObject, new BaseEventData(eventSystem));
     }
 
-    private void CloseOptions()
+    public void CloseOptions()
     {
         optionsPanel.SetActive(false);
         mainPanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(startButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(startButtonObject, new BaseEventData(eventSystem));
     }
 
 }

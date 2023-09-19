@@ -45,13 +45,11 @@ public class MenuManager : MonoBehaviour
 
     //private int points;
     private EventSystem eventSystem;
-    private EventSystem firstSelectedButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        eventSystem = EventSystem.current;
-        firstSelectedButton = eventSystem.GetComponent<EventSystem>();
+        eventSystem = EventSystem.current.GetComponent<EventSystem>();
 
         gameOverScreen = false;
         optionsScreen = false;
@@ -80,7 +78,7 @@ public class MenuManager : MonoBehaviour
     public void PauseGameplay()
     {
         pausePanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
         pauseScreen = true;
         playing = false;
     }
@@ -98,7 +96,7 @@ public class MenuManager : MonoBehaviour
     {
         gameOverText.text = ("Game Over. You got a score of " + score + " : Restart or Quit?");
         gameOverPanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(restartButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(restartButtonObject, new BaseEventData(eventSystem));
         gameOverScreen = true;
         playing = false;
     }
@@ -107,7 +105,7 @@ public class MenuManager : MonoBehaviour
     {
         pausePanel.SetActive(false);
         optionsPanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(optionsPanelBackButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(optionsPanelBackButtonObject, new BaseEventData(eventSystem));
         optionsScreen = true;
         pauseScreen = false;
     }
@@ -116,7 +114,7 @@ public class MenuManager : MonoBehaviour
     {
         optionsPanel.SetActive(false);
         pausePanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
         pauseScreen = true;
         optionsScreen = false;
     }
@@ -162,14 +160,14 @@ public class MenuManager : MonoBehaviour
     {
         pausePanel.SetActive(false);
         confirmQuitPanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(cancelQuitButton, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(cancelQuitButton, new BaseEventData(eventSystem));
     }
 
     public void CancelQuit()
     {
         confirmQuitPanel.SetActive(false);
         pausePanel.SetActive(true);
-        firstSelectedButton.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
     }
 
     public void QuitToMain()
@@ -181,6 +179,11 @@ public class MenuManager : MonoBehaviour
     {
         victoryPanel.SetActive(true);
         victoryScreen = true;
-        firstSelectedButton.SetSelectedGameObject(victoryRestartButton, new BaseEventData(eventSystem));
+        eventSystem.SetSelectedGameObject(victoryRestartButton, new BaseEventData(eventSystem));
+    }
+
+    public void SelectNewButton(GameObject button)
+    {
+        eventSystem.SetSelectedGameObject(button, new BaseEventData(eventSystem));
     }
 }
