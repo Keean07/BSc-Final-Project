@@ -8,6 +8,12 @@ public class BallMoving : MonoBehaviour
     private Rigidbody rb;
     [HideInInspector] public bool reset;
 
+    [SerializeField] private AudioManager audioManager;
+    [SerializeField] private PlatformManager platformManager;
+
+    // Flag to prevent landing sounds continuously playing
+    public bool landed = false;
+
     void Start()
     {
         rb = transform.GetComponent<Rigidbody>();
@@ -47,6 +53,19 @@ public class BallMoving : MonoBehaviour
         transform.rotation = Quaternion.identity;
         // Sleep rigidbody
         rb.Sleep();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision != null && !landed)
+        {
+            if (collision.gameObject == platformManager.currentPlatform)
+            {
+                Debug.Log("Ball landed");
+                audioManager.LandingSound();
+                landed = true;
+            }
+        }
     }
 
 }

@@ -52,6 +52,7 @@ public class GameplayManager: MonoBehaviour
         if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - maxDistUnderPlatform)
         {
             PlayerDied();
+            ballMoving.landed = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -65,6 +66,7 @@ public class GameplayManager: MonoBehaviour
             else if (menuManager.progressScreen)
             {
                 BeginNextPlatform();
+                ballMoving.landed = false;
             }
         }
     }
@@ -140,6 +142,7 @@ public class GameplayManager: MonoBehaviour
         platformManager.RestartPlatform();
         ballMoving.ResetPlayer(platformManager.currentPlatform);
         menuManager.PlayerRespawn();
+        ballMoving.landed = false;
         Time.timeScale = 1;
     }
 
