@@ -70,7 +70,14 @@ public class StartMenuNavigation : MonoBehaviour
     }
     public void SelectNewButton(GameObject button)
     {
-        eventSystem.SetSelectedGameObject(button, new BaseEventData(eventSystem));
+        if (button != eventSystem.currentSelectedGameObject)
+        {
+            eventSystem.SetSelectedGameObject(button, new BaseEventData(eventSystem));
+        }
     }
 
+    public void DeselectButton()
+    {
+        eventSystem.SetSelectedGameObject(null);
+    }
 }

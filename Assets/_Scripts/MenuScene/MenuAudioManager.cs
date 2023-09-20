@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class MenuAudioManager : MonoBehaviour
 {
@@ -19,8 +20,11 @@ public class MenuAudioManager : MonoBehaviour
         clickAudio.Play();
     }
 
-    public void HoverSound()
+    public void HoverSound(GameObject button)
     {
-        hoverAudio.Play();
+        if (button != EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject)
+        {
+            hoverAudio.Play();
+        }
     }
 }
