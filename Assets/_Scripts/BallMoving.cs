@@ -1,23 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BallMoving : MonoBehaviour
 {
-    public float speed;
-    private Rigidbody rb;
-    [HideInInspector] public bool reset;
-
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private PlatformManager platformManager;
+    [HideInInspector] public bool reset;
+
+    private Rigidbody rb;
+    public float speed = 5;
+    public float jumpForce = 6f;
 
     // Flag to prevent landing sounds continuously playing
     public bool landed = false;
+    private bool canJump;
+
+    private Vector3 moveVec = Vector3.zero;
+    private Vector3 inputVec = Vector3.zero;
 
     void Start()
     {
         rb = transform.GetComponent<Rigidbody>();
         reset = false;
+        canJump = true;
     }
 
     // Update is called once per frame
@@ -25,13 +32,29 @@ public class BallMoving : MonoBehaviour
     {
         if (!reset)
         {
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-                
-            Vector3 moveBall = new(horizontal, 0, vertical);
+            moveVec = new Vector3(inputVec.x, 0, inputVec.y) * speed;
 
-            rb.AddForce(moveBall * speed);
-            //Debug.Log("Adding force");
+            if (!canJump)
+            {
+                moveVec /= 2;
+            }
+            rb.AddForce(moveVec * Time.deltaTime);
+        }
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        inputVec = context.ReadValue<Vector2>();
+    }
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed && canJump)
+        {
+            Debug.Log("Jumping");
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            canJump = false;
+            landed = false;
         }
     }
 
@@ -64,6 +87,7 @@ public class BallMoving : MonoBehaviour
                 Debug.Log("Ball landed");
                 audioManager.LandingSound();
                 landed = true;
+                canJump = true;
             }
         }
     }
