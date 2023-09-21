@@ -7,10 +7,11 @@ public class BallMoving : MonoBehaviour
 {
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private PlatformManager platformManager;
+    [SerializeField] private RotateCamera rotateCamera;
     [HideInInspector] public bool reset;
 
     private Rigidbody rb;
-    public float speed = 5;
+    public float speed = 800;
     public float jumpForce = 6f;
 
     // Flag to prevent landing sounds continuously playing
@@ -61,7 +62,7 @@ public class BallMoving : MonoBehaviour
     public void ResetPlayer(GameObject currentPlatform)
     {
         // Reset player position on current platform
-        transform.position = currentPlatform.transform.position + new Vector3(0f, 5f, 0f);
+        transform.position = currentPlatform.transform.position + new Vector3(0f, 3f, 0f);
         // Reset player velocity
         CancelForce();
     }

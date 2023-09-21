@@ -20,6 +20,7 @@ public class CameraManager : MonoBehaviour
 
         //plat2pos = new Vector3(0.0f, 25.0f, 4.5f);
         //plat2rot = Quaternion.Euler(40.0f, 0.0f, 0.0f);
+        
     }
 
     public void CamToPlatform(GameObject platform)
@@ -34,11 +35,17 @@ public class CameraManager : MonoBehaviour
         //    cam.transform.position = plat2pos;
         //    cam.transform.rotation = plat2rot;
         //}
-        
+
         cam.transform.SetPositionAndRotation(new Vector3(
             platform.transform.position.x,
             platform.transform.position.y + 4.0f,
             platform.transform.position.z - 4.0f
             ), Quaternion.Euler(50.0f, 0.0f, 0.0f));
+
+        //cam.transform.SetPositionAndRotation(new Vector3(
+        //    platform.transform.position.x,
+        //    platform.transform.position.y + 5.5f,
+        //    platform.transform.position.z
+        //    ), Quaternion.Euler(90.0f, 0.0f, 0.0f));
     }
 }
