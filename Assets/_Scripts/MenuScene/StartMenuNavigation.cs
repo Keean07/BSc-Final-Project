@@ -17,6 +17,9 @@ public class StartMenuNavigation : MonoBehaviour
     [SerializeField] private GameObject optionsBackButtonObject;
 
     [SerializeField] private MenuAudioManager audioManager;
+    [SerializeField] private VolumeController volumeController;
+    [SerializeField] private BrightnessController brightnessController;
+    [SerializeField] private DontDestroyOnLoad saveObject;
 
     private EventSystem eventSystem;
 
@@ -24,10 +27,12 @@ public class StartMenuNavigation : MonoBehaviour
     void Start()
     {
         eventSystem = EventSystem.current.GetComponent<EventSystem>();
+        saveObject.SaveSettings(volumeController.GetVolume(), brightnessController.GetBrightness());
     }
 
     public void LoadGame()
     {
+        saveObject.SaveSettings(volumeController.GetVolume(), brightnessController.GetBrightness());
         SceneManager.LoadScene(1);
     }
 
@@ -69,7 +74,7 @@ public class StartMenuNavigation : MonoBehaviour
         if (button != eventSystem.currentSelectedGameObject)
         {
             eventSystem.SetSelectedGameObject(button, new BaseEventData(eventSystem));
-            audioManager.HoverSound(button);
+            audioManager.HoverSound();
         }
     }
 

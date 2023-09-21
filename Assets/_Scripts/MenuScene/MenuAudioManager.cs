@@ -20,12 +20,8 @@ public class MenuAudioManager : MonoBehaviour
         clickAudio.Play();
     }
 
-    public void HoverSound(GameObject button)
+    public void HoverSound()
     {
-        //if (button != EventSystem.current.GetComponent<EventSystem>().currentSelectedGameObject)
-        //{
-        //    hoverAudio.Play();
-        //}
         hoverAudio.Play();
     }
 }

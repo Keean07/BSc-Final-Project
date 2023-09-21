@@ -149,11 +149,6 @@ public class MenuManager : MonoBehaviour
         playing = true;
     }
 
-    public void RestartGame()
-    {
-        SceneManager.LoadScene(1);
-    }
-
     public void ConfirmQuit()
     {
         pausePanel.SetActive(false);
@@ -168,11 +163,6 @@ public class MenuManager : MonoBehaviour
         eventSystem.SetSelectedGameObject(pausePanelResumeButtonObject, new BaseEventData(eventSystem));
     }
 
-    public void QuitToMain()
-    {
-        SceneManager.LoadScene(0);
-    }
-
     public void Victory()
     {
         victoryPanel.SetActive(true);
@@ -182,6 +172,15 @@ public class MenuManager : MonoBehaviour
 
     public void SelectNewButton(GameObject button)
     {
-        eventSystem.SetSelectedGameObject(button, new BaseEventData(eventSystem));
+        if (button != eventSystem.currentSelectedGameObject)
+        {
+            eventSystem.SetSelectedGameObject(button, new BaseEventData(eventSystem));
+            audioManager.HoverSound();
+        }
+    }
+
+    public void DeselectButon()
+    {
+        eventSystem.SetSelectedGameObject(null);
     }
 }

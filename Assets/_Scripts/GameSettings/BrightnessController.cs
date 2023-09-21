@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Rendering.PostProcessing;
+using System;
 
 public class BrightnessController : MonoBehaviour
 {
     public Slider brightnessSlider;
 
-    [SerializeField] GameObject brightnessOverlay;
+    [SerializeField] Image brightnessOverlay;
 
     private Color currentColor;
 
-    private void Start()
+    private void OnAwake()
     {
-        brightnessSlider.value = 1;
+        //brightnessSlider.value = 1;
     }
 
     // This method is called when the slider value changes
@@ -23,5 +23,17 @@ public class BrightnessController : MonoBehaviour
         currentColor = brightnessOverlay.GetComponent<Image>().color;
         currentColor.a = 1 - brightnessSlider.value;
         brightnessOverlay.GetComponent<Image>().color = currentColor;
+
+    }
+
+    public float GetBrightness()
+    {
+        return brightnessSlider.value;
+    }
+
+    public void LoadBrightness(float brightness)
+    {
+        brightnessSlider.value = brightness;
+        SetBrightness();
     }
 }

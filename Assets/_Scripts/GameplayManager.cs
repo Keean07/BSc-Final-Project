@@ -12,11 +12,14 @@ public class GameplayManager: MonoBehaviour
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private PlatformManager platformManager;
     [SerializeField] private CoinManager coinManager;
+    [SerializeField] private GameSettingImporter gameSettingImporter;
 
     private int maxDistUnderPlatform = 3;
 
     void Start()
     {
+        gameSettingImporter = FindObjectOfType<GameSettingImporter>();
+
         // Begin Gameplay loop with welcome screen
         menuManager.WelcomeScreen();
         Time.timeScale = 0.0f;
@@ -150,5 +153,17 @@ public class GameplayManager: MonoBehaviour
     {
         menuManager.Victory();
         Time.timeScale = 0;
+    }
+
+    public void RestartGame()
+    {
+        gameSettingImporter.SaveGameSettings();
+        SceneManager.LoadScene(1);
+    }
+
+    public void QuitToMain() 
+    {
+        gameSettingImporter.SaveGameSettings();
+        SceneManager.LoadScene(0);
     }
 }
