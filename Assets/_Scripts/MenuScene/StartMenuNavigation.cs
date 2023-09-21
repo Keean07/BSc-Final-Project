@@ -16,18 +16,14 @@ public class StartMenuNavigation : MonoBehaviour
     [SerializeField] private GameObject optionsPanel;
     [SerializeField] private GameObject optionsBackButtonObject;
 
+    [SerializeField] private MenuAudioManager audioManager;
+
     private EventSystem eventSystem;
 
     // Start is called before the first frame update
     void Start()
     {
         eventSystem = EventSystem.current.GetComponent<EventSystem>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void LoadGame()
@@ -73,6 +69,7 @@ public class StartMenuNavigation : MonoBehaviour
         if (button != eventSystem.currentSelectedGameObject)
         {
             eventSystem.SetSelectedGameObject(button, new BaseEventData(eventSystem));
+            audioManager.HoverSound(button);
         }
     }
 
