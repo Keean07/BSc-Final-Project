@@ -166,4 +166,9 @@ public class GameplayManager: MonoBehaviour
         gameSettingImporter.SaveGameSettings();
         SceneManager.LoadScene(0);
     }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 }

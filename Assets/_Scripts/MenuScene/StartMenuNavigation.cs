@@ -17,9 +17,8 @@ public class StartMenuNavigation : MonoBehaviour
     [SerializeField] private GameObject optionsBackButtonObject;
 
     [SerializeField] private MenuAudioManager audioManager;
-    [SerializeField] private VolumeController volumeController;
-    [SerializeField] private BrightnessController brightnessController;
-    [SerializeField] private DontDestroyOnLoad saveObject;
+
+    [SerializeField] private GameSettingImporter gameSettingImporter;
 
     private EventSystem eventSystem;
 
@@ -27,12 +26,11 @@ public class StartMenuNavigation : MonoBehaviour
     void Start()
     {
         eventSystem = EventSystem.current.GetComponent<EventSystem>();
-        saveObject.SaveSettings(volumeController.GetVolume(), brightnessController.GetBrightness());
     }
 
     public void LoadGame()
     {
-        saveObject.SaveSettings(volumeController.GetVolume(), brightnessController.GetBrightness());
+        gameSettingImporter.SaveGameSettings();
         SceneManager.LoadScene(1);
     }
 
@@ -81,5 +79,10 @@ public class StartMenuNavigation : MonoBehaviour
     public void DeselectButton()
     {
         eventSystem.SetSelectedGameObject(null);
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

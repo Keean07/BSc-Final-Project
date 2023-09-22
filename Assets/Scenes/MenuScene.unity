@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.7
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0032230201, g: 0.0036705835, b: 0.013944524, a: 0.7}
+  m_IndirectSpecularColor: {r: 0.017445534, g: 0.01588957, b: 0.04926695, a: 0.7}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1557,7 +1557,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volumeController: {fileID: 1080242051}
   brightnessController: {fileID: 856348908}
-  dontDestroy: {fileID: 0}
 --- !u!4 &945317951
 Transform:
   m_ObjectHideFlags: 0
@@ -1573,53 +1572,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &994848499
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 994848500}
-  - component: {fileID: 994848501}
-  m_Layer: 0
-  m_Name: DontDestroyOnLoad
-  m_TagString: DontDestroy
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &994848500
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 994848499}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &994848501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 994848499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c27198ac9718f2e4388f6290931902e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  brightnessValue: 0
-  volumeValue: 0
-  mustLoad: 0
 --- !u!1 &1069598658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2382,7 +2334,7 @@ MonoBehaviour:
   audioManager: {fileID: 1080242050}
   volumeController: {fileID: 1080242051}
   brightnessController: {fileID: 856348908}
-  saveObject: {fileID: 994848501}
+  gameSettingImporter: {fileID: 945317950}
 --- !u!4 &2137187330
 Transform:
   m_ObjectHideFlags: 0
