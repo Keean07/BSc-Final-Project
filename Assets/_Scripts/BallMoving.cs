@@ -57,14 +57,12 @@ public class BallMoving : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         inputVec = context.ReadValue<Vector2>();
-        Debug.Log(inputVec);
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.performed && canJump)
         {
-            Debug.Log("Jumping");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             canJump = false;
             landed = false;
