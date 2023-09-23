@@ -12,6 +12,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource coinCollectAudio;
     [SerializeField] AudioSource progressAudio;
     [SerializeField] AudioSource healthAudio;
+    [SerializeField] AudioSource landingAudio;
+    [SerializeField] AudioSource gameOverAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -47,5 +49,15 @@ public class AudioManager : MonoBehaviour
     public void CollectHealthSound()
     {
         healthAudio.Play();
+    }
+
+    public void LandingSound()
+    {
+        landingAudio.Play();
+    }
+
+    public void GameOverSound()
+    {
+        gameOverAudio.Play();
     }
 }

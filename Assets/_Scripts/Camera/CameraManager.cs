@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [SerializeField] Camera cam;
+    private RotateCamera rotateCamera;
 
     //private Vector3 plat1pos;
     //private Quaternion plat1rot;
@@ -15,11 +16,13 @@ public class CameraManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rotateCamera = GetComponent<RotateCamera>();
         //plat1pos = new Vector3(0.0f, 14.0f, -4.0f);
         //plat1rot = Quaternion.Euler(50.0f, 0.0f, 0.0f);
 
         //plat2pos = new Vector3(0.0f, 25.0f, 4.5f);
         //plat2rot = Quaternion.Euler(40.0f, 0.0f, 0.0f);
+        
     }
 
     public void CamToPlatform(GameObject platform)
@@ -34,11 +37,19 @@ public class CameraManager : MonoBehaviour
         //    cam.transform.position = plat2pos;
         //    cam.transform.rotation = plat2rot;
         //}
-        
+
         cam.transform.SetPositionAndRotation(new Vector3(
             platform.transform.position.x,
             platform.transform.position.y + 4.0f,
             platform.transform.position.z - 4.0f
             ), Quaternion.Euler(50.0f, 0.0f, 0.0f));
+
+        rotateCamera.pivotPoint = platform.transform.position;
+
+        //cam.transform.SetPositionAndRotation(new Vector3(
+        //    platform.transform.position.x,
+        //    platform.transform.position.y + 5.5f,
+        //    platform.transform.position.z
+        //    ), Quaternion.Euler(90.0f, 0.0f, 0.0f));
     }
 }

@@ -12,11 +12,14 @@ public class GameplayManager: MonoBehaviour
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private PlatformManager platformManager;
     [SerializeField] private CoinManager coinManager;
+    [SerializeField] private GameSettingImporter gameSettingImporter;
 
     private int maxDistUnderPlatform = 3;
 
     void Start()
     {
+        gameSettingImporter = FindObjectOfType<GameSettingImporter>();
+
         // Begin Gameplay loop with welcome screen
         menuManager.WelcomeScreen();
         Time.timeScale = 0.0f;
@@ -52,6 +55,7 @@ public class GameplayManager: MonoBehaviour
         if (playerManager.player.transform.position.y < platformManager.currentPlatform.transform.position.y - maxDistUnderPlatform)
         {
             PlayerDied();
+            ballMoving.landed = false;
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -65,6 +69,7 @@ public class GameplayManager: MonoBehaviour
             else if (menuManager.progressScreen)
             {
                 BeginNextPlatform();
+                ballMoving.landed = false;
             }
         }
     }
@@ -74,14 +79,14 @@ public class GameplayManager: MonoBehaviour
         if (!menuManager.gameOverScreen && !menuManager.diedScreen && !menuManager.progressScreen)
         {
             // If player still has lives
-            if (playerManager.playerLives > 0)
+            if (playerManager.playerLives > 1)
             {
                 menuManager.PlayerDied();
             }
             // If player is out of lives
-            else if (playerManager.playerLives < 1)
+            else if (playerManager.playerLives == 1)
             {
-                menuManager.GameOver(coinManager.score);
+                menuManager.GameOver(playerManager.playerScore);
             }
         }
     }
@@ -137,15 +142,33 @@ public class GameplayManager: MonoBehaviour
 
     public void RespawnPlayer()
     {
-        platformManager.RestartPlatform();
+        Time.timeScale = 1;
         ballMoving.ResetPlayer(platformManager.currentPlatform);
         menuManager.PlayerRespawn();
-        Time.timeScale = 1;
+        ballMoving.landed = false;
+        platformManager.RestartPlatform();
     }
 
     private void PlayerWins()
     {
         menuManager.Victory();
         Time.timeScale = 0;
+    }
+
+    public void RestartGame()
+    {
+        gameSettingImporter.SaveGameSettings();
+        SceneManager.LoadScene(1);
+    }
+
+    public void QuitToMain() 
+    {
+        gameSettingImporter.SaveGameSettings();
+        SceneManager.LoadScene(0);
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }
