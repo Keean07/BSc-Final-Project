@@ -79,12 +79,12 @@ public class GameplayManager: MonoBehaviour
         if (!menuManager.gameOverScreen && !menuManager.diedScreen && !menuManager.progressScreen)
         {
             // If player still has lives
-            if (playerManager.playerLives > 0)
+            if (playerManager.playerLives > 1)
             {
                 menuManager.PlayerDied();
             }
             // If player is out of lives
-            else if (playerManager.playerLives < 1)
+            else if (playerManager.playerLives == 1)
             {
                 menuManager.GameOver(coinManager.score);
             }

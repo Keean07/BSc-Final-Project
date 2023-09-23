@@ -92,6 +92,9 @@ public class MenuManager : MonoBehaviour
 
     public void GameOver(int score)
     {
+        playerManager.LoseLife();
+        //audioManager.DeathSound();
+        audioManager.GameOverSound();
         gameOverText.text = ("Game Over. You got a score of " + score + " : Restart or Quit?");
         gameOverPanel.SetActive(true);
         eventSystem.SetSelectedGameObject(restartButtonObject, new BaseEventData(eventSystem));
