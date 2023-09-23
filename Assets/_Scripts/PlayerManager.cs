@@ -11,23 +11,37 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] TMP_Text livesText;
 
     public int playerLives;
+    public int playerScore;
 
     // Start is called before the first frame update
     void Start()
     {
         playerLives = 3;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        pointsText.text = "Points: " + coinManager.score;
-        livesText.text = "Lives: " + playerLives;
+        UpdateStats();
     }
 
     public void LoseLife()
     {
         playerLives--;
+        UpdateStats();
+    }
+
+    public void GetLife()
+    {
+        playerLives++;
+        UpdateStats();
+    }
+
+    public void GetPoint()
+    {
+        playerScore++;
+        UpdateStats();
+    }
+
+    public void UpdateStats()
+    {
+        pointsText.text = "Points: " + playerScore;
+        livesText.text = "Lives: " + playerLives;
     }
 
 }

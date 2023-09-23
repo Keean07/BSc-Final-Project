@@ -86,7 +86,7 @@ public class GameplayManager: MonoBehaviour
             // If player is out of lives
             else if (playerManager.playerLives == 1)
             {
-                menuManager.GameOver(coinManager.score);
+                menuManager.GameOver(playerManager.playerScore);
             }
         }
     }
@@ -142,11 +142,11 @@ public class GameplayManager: MonoBehaviour
 
     public void RespawnPlayer()
     {
-        platformManager.RestartPlatform();
+        Time.timeScale = 1;
         ballMoving.ResetPlayer(platformManager.currentPlatform);
         menuManager.PlayerRespawn();
         ballMoving.landed = false;
-        Time.timeScale = 1;
+        platformManager.RestartPlatform();
     }
 
     private void PlayerWins()

@@ -20,6 +20,7 @@ public class BallMoving : MonoBehaviour
 
     private Vector3 moveVec = Vector3.zero;
     private Vector3 inputVec = Vector3.zero;
+    private Vector3 moveDirection = Vector3.zero;
 
     void Start()
     {
@@ -33,7 +34,17 @@ public class BallMoving : MonoBehaviour
     {
         if (!reset)
         {
-            moveVec = new Vector3(inputVec.x, 0, inputVec.y) * speed;
+            // Get cameras forward direction
+            Vector3 cameraForward = rotateCamera.GetCameraForward();
+            // Ignore y direction
+            cameraForward.y = 0;
+            // Normalize
+            cameraForward.Normalize();
+            // Calculate the direction the ball must be going based on user input
+            moveDirection = cameraForward * inputVec.y + rotateCamera.GetCameraRight() * inputVec.x;
+            moveVec = moveDirection.normalized * speed;
+
+            //moveVec = new Vector3(inputVec.x, 0, inputVec.y) * speed;
 
             if (!canJump)
             {
@@ -46,6 +57,7 @@ public class BallMoving : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         inputVec = context.ReadValue<Vector2>();
+        Debug.Log(inputVec);
     }
 
     public void OnJump(InputAction.CallbackContext context)

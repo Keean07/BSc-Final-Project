@@ -20,7 +20,7 @@ public class CoinManager : MonoBehaviour
 
     private GameObject child;
 
-    public int score;
+    //public int score;
 
     private readonly float rotatespeed = 120;
 
@@ -110,8 +110,6 @@ public class CoinManager : MonoBehaviour
     public void ChangePlatform()
     {
         gameplayManager.PlayerProgress();
-        //FillCoinsList();
-        //CheckCoins();
     }
 
     /***
@@ -147,7 +145,9 @@ public class CoinManager : MonoBehaviour
             if (collider.gameObject == coinsList[i])
             {
                 coinsList[i].SetActive(false);
-                score++;
+                //score++;
+                playerManager.GetPoint();
+                //playerManager.UpdateStats();
             }
         }
         
@@ -156,7 +156,7 @@ public class CoinManager : MonoBehaviour
             if (collider.gameObject == healthList[i])
             {
                 healthList[i].SetActive(false);
-                playerManager.playerLives++;
+                playerManager.GetLife();
             }
         }
     }

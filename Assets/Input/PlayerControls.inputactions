@@ -145,15 +145,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "3b1c4d19-a018-490e-9dea-b0b24ba9a06e",
-                    "path": "<Mouse>/rightButton",
+                    "name": "1D Axis",
+                    "id": "70fd1b8b-ec0e-47bb-b3ad-ff6ca60002ed",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate Camera",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d01e2cff-9a88-4e69-a710-75c1dabca4a9",
+                    "path": "<Keyboard>/comma",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Rotate Camera",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "86e2c157-b855-4b4f-8b44-22302ef7e3be",
+                    "path": "<Keyboard>/period",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate Camera",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

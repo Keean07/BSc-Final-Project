@@ -68,8 +68,9 @@ public class PlatformManager : MonoBehaviour
     public void RestartPlatform()
     {
         // Reset platform angular velocity
-        currentRB.angularVelocity = new Vector3(0.0f, 0.0f, 0.0f);
+        currentRB.angularVelocity = Vector3.zero;
+        currentRB.velocity = Vector3.zero;
         // Reset platform rotation
-        currentPlatform.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        currentPlatform.transform.rotation = Quaternion.identity;
     }
 }
