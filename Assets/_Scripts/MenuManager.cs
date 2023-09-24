@@ -170,6 +170,7 @@ public class MenuManager : MonoBehaviour
     {
         victoryPanel.SetActive(true);
         victoryScreen = true;
+        audioManager.VictorySound();
         eventSystem.SetSelectedGameObject(victoryRestartButton, new BaseEventData(eventSystem));
     }
 
