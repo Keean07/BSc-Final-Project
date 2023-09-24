@@ -95,7 +95,6 @@ public class BallMoving : MonoBehaviour
         {
             if (collision.gameObject == platformManager.currentPlatform)
             {
-                Debug.Log("Ball landed");
                 audioManager.LandingSound();
                 landed = true;
                 canJump = true;

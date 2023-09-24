@@ -26,9 +26,6 @@ public class PlatformManager : MonoBehaviour
 
     private Rigidbody currentRB;
 
-    //private Vector3 Spawn1;
-    //private Vector3 Spawn2;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -65,12 +62,15 @@ public class PlatformManager : MonoBehaviour
             return false;
         }
     }
+
     public void RestartPlatform()
     {
+        // Reset platform velocity
+        currentRB.velocity = Vector3.zero;
         // Reset platform angular velocity
         currentRB.angularVelocity = Vector3.zero;
-        currentRB.velocity = Vector3.zero;
         // Reset platform rotation
         currentPlatform.transform.rotation = Quaternion.identity;
+        Debug.Log("Reset platform");
     }
 }

@@ -64,6 +64,7 @@ public class GameplayManager: MonoBehaviour
             if (menuManager.diedScreen)
             {
                 RespawnPlayer();
+                platformManager.RestartPlatform();
             }
             // Begin next platform
             else if (menuManager.progressScreen)
@@ -142,11 +143,10 @@ public class GameplayManager: MonoBehaviour
 
     public void RespawnPlayer()
     {
-        Time.timeScale = 1;
-        ballMoving.ResetPlayer(platformManager.currentPlatform);
         menuManager.PlayerRespawn();
-        ballMoving.landed = false;
         platformManager.RestartPlatform();
+        ballMoving.ResetPlayer(platformManager.currentPlatform);
+        ballMoving.landed = false;
     }
 
     private void PlayerWins()
