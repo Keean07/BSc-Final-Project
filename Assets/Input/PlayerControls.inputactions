@@ -136,7 +136,7 @@
                 {
                     "name": "",
                     "id": "1edca1e9-246b-4a65-9534-95b0cbd6fd0f",
-                    "path": "<Keyboard>/space",
+                    "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -158,7 +158,7 @@
                 {
                     "name": "negative",
                     "id": "d01e2cff-9a88-4e69-a710-75c1dabca4a9",
-                    "path": "<Keyboard>/comma",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -169,7 +169,7 @@
                 {
                     "name": "positive",
                     "id": "86e2c157-b855-4b4f-8b44-22302ef7e3be",
-                    "path": "<Keyboard>/period",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
