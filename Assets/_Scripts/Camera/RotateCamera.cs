@@ -29,7 +29,7 @@ public class RotateCamera : MonoBehaviour
 
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         // If user is rotating cam, rotate cam around pivot
         if (isRotating)
