@@ -135,8 +135,8 @@
                 },
                 {
                     "name": "",
-                    "id": "1edca1e9-246b-4a65-9534-95b0cbd6fd0f",
-                    "path": "<Keyboard>/x",
+                    "id": "38a52c7e-3ab1-40bd-b2ef-aa128214f2e2",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -145,8 +145,19 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "70fd1b8b-ec0e-47bb-b3ad-ff6ca60002ed",
+                    "name": "",
+                    "id": "138a0cff-89ed-4fff-b851-87e285b4bd2b",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis (Right Alt and control)",
+                    "id": "bcf0ba76-7894-42a1-84d1-9002624a2559",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
@@ -157,8 +168,8 @@
                 },
                 {
                     "name": "negative",
-                    "id": "d01e2cff-9a88-4e69-a710-75c1dabca4a9",
-                    "path": "<Keyboard>/z",
+                    "id": "9d03feca-f9c1-4422-b809-d556aac899c2",
+                    "path": "<Keyboard>/rightAlt",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -168,8 +179,8 @@
                 },
                 {
                     "name": "positive",
-                    "id": "86e2c157-b855-4b4f-8b44-22302ef7e3be",
-                    "path": "<Keyboard>/c",
+                    "id": "9509404d-fbb3-4b22-b1a2-cfd65948bccf",
+                    "path": "<Keyboard>/rightCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
