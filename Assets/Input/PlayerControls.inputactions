@@ -134,29 +134,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "38a52c7e-3ab1-40bd-b2ef-aa128214f2e2",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "138a0cff-89ed-4fff-b851-87e285b4bd2b",
-                    "path": "<Keyboard>/rightShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "1D Axis (Right Alt and control)",
+                    "name": "1D Axis",
                     "id": "bcf0ba76-7894-42a1-84d1-9002624a2559",
                     "path": "1DAxis",
                     "interactions": "",
@@ -169,7 +147,7 @@
                 {
                     "name": "negative",
                     "id": "9d03feca-f9c1-4422-b809-d556aac899c2",
-                    "path": "<Keyboard>/rightAlt",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -180,13 +158,24 @@
                 {
                     "name": "positive",
                     "id": "9509404d-fbb3-4b22-b1a2-cfd65948bccf",
-                    "path": "<Keyboard>/rightCtrl",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Rotate Camera",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "0d0ac647-7da4-40c1-bf7a-aa428766aa8e",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

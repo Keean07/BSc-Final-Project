@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.7
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 806002096}
-  m_IndirectSpecularColor: {r: 0.015381652, g: 0.0140000945, b: 0.04423901, a: 0.7}
+  m_IndirectSpecularColor: {r: 0.0032919198, g: 0.0037380161, b: 0.014150732, a: 0.7}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -36946,18 +36946,18 @@ MonoBehaviour:
 
     Use arrow keys or WASD to move.
 
-    Press Shift to jump.
+    Press X to jump.
 
     Press
-    Right Alt to rotate camera left around platform.
+    Z to rotate camera left around platform.
 
-    Press Right CTRL to rotate
-    the camera right around the platform.
+    Press C to rotate the camera right
+    around the platform.
 
-    Collect all coins on this platform
-    to progress.
+    Collect all coins on this platform to progress.
 
-    Move to begin!'
+    Move
+    to begin!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 75a3a0a0b3938764ea390e76408354d6, type: 2}
   m_sharedMaterial: {fileID: 2585268883915577088, guid: 75a3a0a0b3938764ea390e76408354d6, type: 2}
